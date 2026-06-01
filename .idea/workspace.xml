@@ -4,11 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Deleted unused files">
-      <change afterPath="$PROJECT_DIR$/Agent.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Article.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/Wine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Wine.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Add data processing scripts and detailed dataset summaries">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -95,6 +91,11 @@
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\Projects\wine\MQC" />
+    </key>
+  </component>
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
@@ -117,7 +118,7 @@
       <workItem from="1778248406927" duration="3987000" />
       <workItem from="1778501230611" duration="26000" />
       <workItem from="1778510191474" duration="6460000" />
-      <workItem from="1780340192877" duration="303000" />
+      <workItem from="1780340192877" duration="3190000" />
     </task>
     <task id="LOCAL-00001" summary="feat: First commit -- Notebook and datasets">
       <option name="closed" value="true" />
@@ -143,7 +144,15 @@
       <option name="project" value="LOCAL" />
       <updated>1772559497686</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="feat: Add data processing scripts and detailed dataset summaries">
+      <option name="closed" value="true" />
+      <created>1780340711402</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1780340711402</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -153,7 +162,8 @@
     <MESSAGE value="feat: First commit -- Notebook and datasets" />
     <MESSAGE value="doc: README" />
     <MESSAGE value="feat: Deleted unused files" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Deleted unused files" />
+    <MESSAGE value="feat: Add data processing scripts and detailed dataset summaries" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Add data processing scripts and detailed dataset summaries" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Wine$main.coverage" NAME="main Coverage Results" MODIFIED="1778517566732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tde02-regressao-linear-multipla/src" />
