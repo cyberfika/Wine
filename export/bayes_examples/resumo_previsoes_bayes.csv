@@ -1,0 +1,3 @@
+exemplo,pergunta,previsao,probabilidade_percentual
+1,"Dado que alcohol >= 12, qual valor de quality e mais provavel?",quality = 6,43.282051282051285
+2,"Dado que quality = 7, qual valor de wine_type e mais provavel?",wine_type = white,81.55699721964783

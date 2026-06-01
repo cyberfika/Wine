@@ -1,0 +1,323 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newtxtext}
+  \usepackage{newtxmath}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Times New Roman}
+\fi
+
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{tocloft}
+\usepackage{titlesec}
+\usepackage{hyperref}
+
+\geometry{
+  a4paper,
+  left=3cm,
+  top=3cm,
+  right=2cm,
+  bottom=2cm
+}
+
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\hypersetup{
+  colorlinks=true,
+  linkcolor=black,
+  citecolor=black,
+  urlcolor=black
+}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!60!black},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{red!50!black},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  tabsize=4
+}
+\lstset{style=pythonstyle}
+
+% Preencha estes campos antes de enviar no Overleaf.
+\newcommand{\aluno}{Nome Completo do Aluno}
+\newcommand{\disciplina}{Métodos Quantitativos em Computação}
+\newcommand{\professor}{Júlio Cesar Nievola}
+\newcommand{\curso}{Bacharelado em Ciência da Computação}
+\newcommand{\turma}{Turma U}
+\newcommand{\instituicao}{Pontifícia Universidade Católica do Paraná}
+\newcommand{\titulo}{Passeio Aleatório em Malhas Hexagonais por Simulação Monte Carlo}
+\newcommand{\descricao}{Trabalho acadêmico sobre Random Walk, simulação probabilística e comparação entre malhas quadradas e hexagonais}
+
+\begin{document}
+
+% Página 1: capa
+\begin{titlepage}
+    \begin{center}
+        \instituicao
+
+        Escola Politécnica
+
+        \curso
+
+        \vfill
+
+        {\bfseries\Large \titulo\par}
+
+        \vspace{1cm}
+
+        {\large \descricao\par}
+
+        \vfill
+
+        \begin{flushleft}
+            \textbf{Aluno:} \aluno
+
+            \textbf{Disciplina:} \disciplina
+
+            \textbf{Professor:} \professor
+
+            \textbf{Turma:} \turma
+
+            \textbf{Período:} 2026/01
+        \end{flushleft}
+
+        \vfill
+
+        Curitiba
+
+        2026
+    \end{center}
+\end{titlepage}
+
+% Página 2: resumo
+\newpage
+\section*{Resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+Este trabalho apresenta uma adaptação do problema clássico do passeio aleatório, ou \textit{Random Walk}, para uma malha formada por blocos hexagonais. O objetivo é estudar como a mudança da geometria do espaço altera a modelagem computacional, a métrica de distância e a interpretação dos resultados obtidos por simulação. A atividade está alinhada ao Plano de Ensino da disciplina \disciplina, especialmente aos temas de modelos de probabilidade, simulação de fenômenos probabilísticos e desenvolvimento de algoritmos baseados em modelos probabilísticos.
+
+No caso original, o passeio ocorre em uma grade quadrada, na qual cada posição possui quatro vizinhos e a distância até a origem pode ser medida pela distância Manhattan. Na versão hexagonal, cada célula possui seis vizinhos, exigindo outra representação matemática. Para isso, são utilizadas coordenadas axiais $(q,r)$ e a distância hexagonal calculada a partir do eixo implícito $s=-q-r$. A implementação em Python utiliza sorteio uniforme entre as seis direções possíveis e estima, por Monte Carlo, a distância média final após diferentes quantidades de passos. Os resultados indicam que a geometria da malha influencia diretamente o crescimento da distância média, a comparação entre execuções e a interpretação estatística do experimento.
+
+\textbf{Palavras-chave:} passeio aleatório; Random Walk; Monte Carlo; probabilidade; malha hexagonal; simulação computacional.
+
+% Página 3: sumário
+\newpage
+\tableofcontents
+
+\newpage
+\section{Introdução}
+
+O termo \textit{Random Walk}, traduzido como passeio aleatório, refere-se a um processo estocástico no qual uma posição evolui ao longo do tempo por meio de deslocamentos escolhidos aleatoriamente. A ideia tornou-se conhecida no início do século XX, especialmente em discussões associadas a movimentos aleatórios, difusão e caminhada sobre retas ou grades. Em termos gerais, um passeio aleatório descreve uma sequência de posições em que cada nova posição depende da posição anterior e de uma escolha aleatória de deslocamento.
+
+O conceito aparece em diversas áreas da computação, da matemática aplicada e das ciências naturais. Entre as utilizações mais comuns estão a modelagem de difusão de partículas, análise de redes, algoritmos probabilísticos, processos de Markov, simulações financeiras, exploração de grafos, PageRank, cadeias aleatórias e métodos de Monte Carlo. Em computação, o passeio aleatório é especialmente útil porque transforma um fenômeno probabilístico em um algoritmo simples, executável e analisável estatisticamente.
+
+O Plano de Ensino da disciplina \disciplina apresenta como parte da ementa o estudo de probabilidade, análise de dados e simulação, com o objetivo de preparar os estudantes para tomar decisões baseadas em informação. O trabalho se relaciona diretamente com o Resultado de Aprendizagem RA3, que trata de definir e codificar algoritmos para resolver problemas de natureza aleatória por meio de simulação computacional e algoritmos probabilísticos. Assim, o passeio aleatório em malha hexagonal funciona como um exemplo prático de modelagem probabilística, simulação e interpretação de resultados.
+
+\section{Desenvolvimento}
+
+\subsection{Passeio aleatório em uma grade quadrada}
+
+No modelo mais simples, considera-se uma grade quadrada. A posição inicial é a origem $(0,0)$, e cada passo escolhe aleatoriamente uma das quatro direções:
+
+\[
+D_{\square}=\{(0,1),(0,-1),(1,0),(-1,0)\}.
+\]
+
+Se $X_t=(x_t,y_t)$ representa a posição após $t$ passos, então:
+
+\[
+X_{t+1}=X_t+\Delta_t,
+\]
+
+em que $\Delta_t$ é escolhido aleatoriamente em $D_{\square}$. A distância natural nesse caso é a distância Manhattan:
+
+\[
+d_{\square}(x,y)=|x|+|y|.
+\]
+
+Essa métrica mede quantos blocos devem ser percorridos horizontal e verticalmente para retornar à origem. O trecho de código correspondente, no caso quadrado, segue a mesma ideia:
+
+\begin{lstlisting}
+dx, dy = random.choice([(0, 1), (0, -1), (1, 0), (-1, 0)])
+x += dx
+y += dy
+distance = abs(x) + abs(y)
+\end{lstlisting}
+
+\subsection{Mudança para blocos hexagonais}
+
+Quando os blocos deixam de ser quadrados e passam a ser hexagonais, a estrutura de vizinhança muda. Cada célula hexagonal possui seis vizinhos, e não quatro. Portanto, a escolha aleatória de direção deve ocorrer sobre seis deslocamentos possíveis.
+
+Uma forma prática de representar uma malha hexagonal é usar coordenadas axiais $(q,r)$. Nesse sistema, cada hexágono é identificado por dois valores, mas a geometria pode ser entendida como tendo três eixos relacionados. O terceiro eixo é implícito:
+
+\[
+s=-q-r.
+\]
+
+As seis direções usadas no código são:
+
+\[
+D_{\mathrm{hex}}=\{(1,0),(1,-1),(0,-1),(-1,0),(-1,1),(0,1)\}.
+\]
+
+Assim, se $H_t=(q_t,r_t)$ representa a posição na malha hexagonal após $t$ passos, então:
+
+\[
+H_{t+1}=H_t+\Delta_t,\quad \Delta_t\in D_{\mathrm{hex}}.
+\]
+
+No código, essa modelagem aparece na lista de direções:
+
+\begin{lstlisting}
+HEX_DIRECTIONS = [
+    (1, 0),    # leste
+    (1, -1),   # nordeste
+    (0, -1),   # noroeste
+    (-1, 0),   # oeste
+    (-1, 1),   # sudoeste
+    (0, 1),    # sudeste
+]
+\end{lstlisting}
+
+O sorteio de cada passo é feito de forma uniforme:
+
+\begin{lstlisting}
+def randomwalk_hexagon(number_of_steps):
+    q, r = 0, 0
+
+    for i in range(number_of_steps):
+        dq, dr = random.choice(HEX_DIRECTIONS)
+        q += dq
+        r += dr
+
+    return q, r
+\end{lstlisting}
+
+\subsection{Distância em malha hexagonal}
+
+A distância Manhattan não descreve corretamente a menor quantidade de passos em uma malha hexagonal, pois ela foi definida para deslocamentos em duas direções ortogonais, típicas de uma grade quadrada. Na malha hexagonal, a distância correta até a origem é:
+
+\[
+d_{\mathrm{hex}}(q,r)=\max(|q|,|r|,|s|),
+\]
+
+com:
+
+\[
+s=-q-r.
+\]
+
+Essa fórmula representa a menor quantidade de movimentos hexagonais necessários para voltar da posição $(q,r)$ até a origem. No código, a fórmula matemática corresponde à função:
+
+\begin{lstlisting}
+def hex_distance(q, r):
+    s = -q - r
+    return max(abs(q), abs(r), abs(s))
+\end{lstlisting}
+
+\subsection{Simulação Monte Carlo}
+
+Como o passeio aleatório depende de sorteios, uma única execução não é suficiente para caracterizar seu comportamento médio. O método de Monte Carlo consiste em repetir o experimento muitas vezes e usar os resultados agregados para estimar uma quantidade de interesse. Neste trabalho, a quantidade estimada é a distância média final até a origem após $n$ passos.
+
+Se $N$ é o número de simulações e $d_i$ é a distância final observada na simulação $i$, a média amostral é:
+
+\[
+\bar{d}_n=\frac{1}{N}\sum_{i=1}^{N}d_i.
+\]
+
+No código, essa expressão é implementada acumulando as distâncias e dividindo pelo número de passeios:
+
+\begin{lstlisting}
+def estimate_average_distance(number_of_steps, number_of_walks):
+    total_distance = 0
+
+    for i in range(number_of_walks):
+        q, r = randomwalk_hexagon(number_of_steps)
+        total_distance += hex_distance(q, r)
+
+    return total_distance / number_of_walks
+\end{lstlisting}
+
+\subsection{Comparação com a grade quadrada}
+
+Ao comparar várias execuções do caso hexagonal com o caso quadrado, a primeira consideração é que ambos os modelos apresentam variação entre execuções. Isso ocorre porque os resultados são estimativas produzidas por sorteios aleatórios. Quanto maior o número de simulações, menor tende a ser a oscilação da média estimada.
+
+A segunda diferença está na geometria. Na grade quadrada existem quatro direções possíveis, enquanto na grade hexagonal existem seis. Essa mudança altera o padrão de espalhamento do passeio. Além disso, a métrica muda: na grade quadrada usa-se $|x|+|y|$; na hexagonal usa-se $\max(|q|,|r|,|s|)$. Portanto, os valores numéricos obtidos nos dois casos não devem ser comparados como se medissem exatamente a mesma geometria.
+
+No caso quadrado, também aparece um efeito de paridade: após número par de passos, a distância Manhattan até a origem é par; após número ímpar, é ímpar. Esse efeito explica oscilações observadas quando o critério usa limites como ``quatro blocos ou menos''. No caso hexagonal, a distância não segue a mesma alternância simples, e a curva de distância média tende a crescer de modo mais regular.
+
+\subsection{Complexidade computacional}
+
+Se $n$ representa o número de passos de um passeio e $N$ representa a quantidade de simulações Monte Carlo, a função que executa um passeio tem complexidade:
+
+\[
+O(n).
+\]
+
+Isso ocorre porque cada passo realiza apenas uma escolha aleatória e uma soma de coordenadas. A estimativa da distância média repete esse passeio $N$ vezes; portanto, sua complexidade é:
+
+\[
+O(N\cdot n).
+\]
+
+O cálculo da distância hexagonal é constante:
+
+\[
+O(1),
+\]
+
+pois envolve apenas três valores absolutos e uma operação de máximo. Em relação ao uso de memória, o algoritmo armazena apenas coordenadas, acumuladores e constantes, logo o consumo adicional é:
+
+\[
+O(1).
+\]
+
+\section{Conclusão}
+
+O passeio aleatório em malha hexagonal mostra como uma alteração aparentemente simples na geometria do problema exige mudanças na modelagem matemática e na implementação. A substituição da grade quadrada por blocos hexagonais aumenta o número de direções possíveis de quatro para seis e exige o uso de uma métrica própria para medir a distância até a origem.
+
+A simulação Monte Carlo permite observar empiricamente o comportamento médio do processo. Ao executar várias simulações, percebe-se que os resultados variam de uma execução para outra, mas tendem a se estabilizar quando o número de repetições aumenta. Essa característica reforça a importância da amostragem, da média amostral e da interpretação probabilística dos resultados, tópicos previstos na disciplina \disciplina.
+
+Assim, o experimento contribui para a compreensão de modelos probabilísticos e simulações computacionais, conectando programação, matemática discreta, probabilidade e análise de algoritmos em um problema simples, visual e extensível.
+
+\section*{Declaração de uso de Inteligência Artificial Generativa}
+\addcontentsline{toc}{section}{Declaração de uso de Inteligência Artificial Generativa}
+
+Durante a preparação deste trabalho acadêmico, o autor usou ChatGPT/Codex para apoiar a estruturação do texto, a organização em LaTeX e a revisão técnica da explicação sobre passeio aleatório em malha hexagonal. Após usar essa ferramenta, o autor revisou e editou o conteúdo conforme necessário e assume total responsabilidade pelo conteúdo.
+
+\begin{thebibliography}{9}
+
+\bibitem{plano}
+PONTIFÍCIA UNIVERSIDADE CATÓLICA DO PARANÁ. \textit{Plano de Ensino: Métodos Quantitativos em Computação}. Professor Júlio Cesar Nievola. Curso de Bacharelado em Ciência da Computação, Turma U, 2026/01.
+
+\bibitem{walpole}
+WALPOLE, Ronald E.; MYERS, Raymond H.; MYERS, Sharon L.; YE, Keying. \textit{Probabilidade e Estatística para Engenharia e Ciências}. São Paulo: Pearson, 2009.
+
+\bibitem{bussab}
+BUSSAB, Wilton de Oliveira; MORETTIN, Pedro A. \textit{Estatística básica}. 6. ed. São Paulo: Saraiva, 2010.
+
+\bibitem{montgomery}
+MONTGOMERY, Douglas C.; RUNGER, George C. \textit{Estatística aplicada e probabilidade para engenharia}. Rio de Janeiro: LTC, 2009.
+
+\bibitem{pearson}
+PEARSON, Karl. \textit{The Problem of the Random Walk}. Nature, 1905.
+
+\end{thebibliography}
+
+\end{document}

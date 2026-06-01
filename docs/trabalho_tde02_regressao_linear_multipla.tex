@@ -1,0 +1,247 @@
+\documentclass[12pt,a4paper]{article}
+
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{newtxtext}
+  \usepackage{newtxmath}
+\else
+  \usepackage{fontspec}
+  \setmainfont{Times New Roman}
+\fi
+
+\usepackage[brazil]{babel}
+\usepackage{geometry}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{microtype}
+\usepackage{amsmath,amssymb}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hyperref}
+
+\geometry{a4paper,left=3cm,top=3cm,right=2cm,bottom=2cm}
+\onehalfspacing
+\setlength{\parindent}{1.25cm}
+\setlength{\parskip}{0pt}
+\hypersetup{colorlinks=true,linkcolor=black,citecolor=black,urlcolor=black}
+
+\lstdefinestyle{pythonstyle}{
+  language=Python,
+  basicstyle=\ttfamily\small,
+  keywordstyle=\color{blue!60!black},
+  commentstyle=\color{green!40!black},
+  stringstyle=\color{red!50!black},
+  showstringspaces=false,
+  breaklines=true,
+  frame=single,
+  tabsize=4
+}
+\lstset{style=pythonstyle}
+
+\newcommand{\aluno}{Nome Completo do Aluno}
+\newcommand{\disciplina}{Metodos Quantitativos em Computacao}
+\newcommand{\professor}{Julio Cesar Nievola}
+\newcommand{\curso}{Bacharelado em Ciencia da Computacao}
+\newcommand{\turma}{Turma U}
+\newcommand{\instituicao}{Pontificia Universidade Catolica do Parana}
+\newcommand{\titulo}{TDE 02 -- Regressao Linear Multipla com a Base Wine Quality}
+\newcommand{\descricao}{Aplicacao de regressao linear multipla para previsao da qualidade de vinhos}
+
+\begin{document}
+
+\begin{titlepage}
+\begin{center}
+\instituicao
+
+Escola Politecnica
+
+\curso
+
+\vfill
+{\bfseries\Large \titulo\par}
+\vspace{1cm}
+{\large \descricao\par}
+\vfill
+\begin{flushleft}
+\textbf{Aluno:} \aluno
+
+\textbf{Disciplina:} \disciplina
+
+\textbf{Professor:} \professor
+
+\textbf{Turma:} \turma
+
+\textbf{Periodo:} 2026/01
+\end{flushleft}
+\vfill
+Curitiba
+
+2026
+\end{center}
+\end{titlepage}
+
+\newpage
+\section*{Resumo}
+\addcontentsline{toc}{section}{Resumo}
+
+Este trabalho apresenta a aplicacao de Regressao Linear Multipla na base Wine Quality. A variavel dependente escolhida foi \texttt{quality}, que representa a nota de qualidade do vinho. Como variaveis explicativas, foram selecionadas as duas variaveis independentes com maior correlacao absoluta com a variavel alvo: \texttt{alcohol} e \texttt{density}. O modelo obtido apresentou coeficiente de determinacao $R^2=0.1974$, indicando que essas duas variaveis explicam aproximadamente 19.74\% da variacao observada na qualidade dos vinhos.
+
+\textbf{Palavras-chave:} regressao linear multipla; correlacao; Wine Quality; coeficiente de determinacao.
+
+\newpage
+\tableofcontents
+
+\newpage
+\section{Base de Dados}
+
+A base Wine Quality contem 6497 observacoes. Para esta atividade, foram consideradas somente as variaveis numericas. A coluna \texttt{wine\_type}, quando presente, e categorica e foi ignorada no ajuste do modelo.
+
+\begin{longtable}{p{4cm}p{10cm}}
+\toprule
+\textbf{Variavel} & \textbf{Representacao} \\
+\midrule
+fixed acidity & Acidez fixa do vinho, formada principalmente por acidos nao volateis. \\
+volatile acidity & Acidez volatil, associada principalmente ao acido acetico. \\
+citric acid & Quantidade de acido citrico, relacionada ao frescor do vinho. \\
+residual sugar & Acucar residual que permanece apos a fermentacao. \\
+chlorides & Concentracao de cloretos, relacionada ao teor de sais. \\
+free sulfur dioxide & Dioxido de enxofre livre, usado para reduzir oxidacao e crescimento microbiano. \\
+total sulfur dioxide & Dioxido de enxofre total, incluindo a parte livre e a combinada. \\
+density & Densidade do vinho, influenciada por alcool, acucar e compostos dissolvidos. \\
+pH & Medida de acidez ou basicidade do vinho. \\
+sulphates & Sulfatos presentes no vinho, associados a conservacao e estabilidade. \\
+alcohol & Teor alcoolico do vinho. \\
+quality & Nota de qualidade atribuida por avaliadores, usada como variavel dependente. \\
+wine_type & Tipo do vinho, tinto ou branco. Coluna categorica ignorada nesta TDE. \\
+\bottomrule
+\end{longtable}
+
+\section{Variavel Dependente e Variaveis Independentes}
+
+A variavel dependente escolhida foi:
+
+\[
+Y = quality
+\]
+
+As variaveis independentes numericas consideradas inicialmente foram:
+
+\[
+fixed acidity, volatile acidity, citric acid, residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, density, pH, sulphates, alcohol
+\]
+
+\section{Correlacao com a Variavel Dependente}
+
+Foi calculado o coeficiente de correlacao de Pearson entre cada variavel independente e \texttt{quality}.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Variavel independente} & \textbf{Correlacao com quality} \\
+\midrule
+alcohol & 0.4443 \\
+density & -0.3059 \\
+volatile acidity & -0.2657 \\
+chlorides & -0.2007 \\
+citric acid & 0.0855 \\
+fixed acidity & -0.0767 \\
+free sulfur dioxide & 0.0555 \\
+total sulfur dioxide & -0.0414 \\
+sulphates & 0.0385 \\
+residual sugar & -0.0370 \\
+pH & 0.0195 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+As duas maiores correlacoes em valor absoluto foram obtidas pelas variaveis \texttt{alcohol} e \texttt{density}.
+
+\section{Obtencao da Equacao de Regressao}
+
+A forma geral da Regressao Linear Multipla com duas variaveis explicativas e:
+
+\[
+Y = b_0 + b_1X_1 + b_2X_2
+\]
+
+Neste trabalho:
+
+\[
+X_1 = alcohol
+\]
+
+\[
+X_2 = density
+\]
+
+Logo:
+
+\[
+quality = b_0 + b_1 \cdot alcohol + b_2 \cdot density
+\]
+
+Os coeficientes estimados pelo metodo dos minimos quadrados foram:
+
+\[
+b_0 = 2.8095
+\]
+
+\[
+b_1 = 0.3246
+\]
+
+\[
+b_2 = -0.3991
+\]
+
+Assim, a equacao final do modelo e:
+
+\[
+quality = 2.8095 + 0.3246 \cdot alcohol -0.3991 \cdot density
+\]
+
+\section{Avaliacao da Qualidade das Previsoes}
+
+A qualidade das previsoes foi avaliada pelo coeficiente de determinacao, $R^2$:
+
+\[
+R^2 = 1 - \frac{SQ_{res}}{SQ_{tot}}
+\]
+
+O valor encontrado foi:
+
+\[
+R^2 = 0.1974
+\]
+
+Portanto, o modelo explica aproximadamente 19.74\% da variacao de \texttt{quality}. Esse resultado indica baixo poder explicativo quando se usam apenas as duas variaveis selecionadas, embora elas sejam as mais correlacionadas individualmente com a qualidade do vinho.
+
+Tambem foram calculadas as seguintes medidas de erro:
+
+\begin{table}[h]
+\centering
+\begin{tabular}{lr}
+\toprule
+\textbf{Metrica} & \textbf{Valor} \\
+\midrule
+MAE & 0.6188 \\
+MSE & 0.6119 \\
+RMSE & 0.7823 \\
+\bottomrule
+\end{tabular}
+\end{table}
+
+\section{Codigo Fonte}
+
+Os calculos foram realizados pelo arquivo \texttt{tde02\_regressao\_linear\_multipla.py}, presente na raiz do repositorio.
+
+\begin{lstlisting}
+python tde02_regressao_linear_multipla.py
+\end{lstlisting}
+
+\end{document}

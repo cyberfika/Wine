@@ -1,0 +1,29 @@
+{
+  "target_variable": "quality",
+  "selected_independent_variables": [
+    "alcohol",
+    "density"
+  ],
+  "correlations": {
+    "alcohol": 0.444318520007654,
+    "density": -0.3058579060694141,
+    "volatile acidity": -0.2656994776114678,
+    "chlorides": -0.20066550043510195,
+    "citric acid": 0.08553171718367843,
+    "fixed acidity": -0.07674320790961985,
+    "free sulfur dioxide": 0.055463058616632664,
+    "total sulfur dioxide": -0.041385453855608795,
+    "sulphates": 0.038485445876514444,
+    "residual sugar": -0.03698048458576946,
+    "pH": 0.019505703714435902
+  },
+  "intercept": 2.809518921799345,
+  "coefficients": {
+    "alcohol": 0.3246228923430876,
+    "density": -0.3991367088236711
+  },
+  "equation": "quality = 2.8095 + 0.3246*alcohol - 0.3991*density",
+  "r2_score": 0.19741993980311445,
+  "mae": 0.6187634350871989,
+  "rmse": 0.7822615308772373
+}

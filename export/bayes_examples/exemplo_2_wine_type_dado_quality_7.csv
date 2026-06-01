@@ -1,0 +1,3 @@
+wine_type,frequencia,total_quality_7,probabilidade_condicional,probabilidade_percentual,evento_condicionado
+red,199,1079,0.18443002780352177,18.443002780352177,quality = 7
+white,880,1079,0.8155699721964782,81.55699721964783,quality = 7

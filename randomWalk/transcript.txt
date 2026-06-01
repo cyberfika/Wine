@@ -1,0 +1,182 @@
+# tactiq.io free youtube transcript
+# A Random Walk & Monte Carlo Simulation  ||  Python Tutorial  ||  Learn Python Programming
+# https://www.youtube.com/watch/BfS2H1y6tzQ
+
+00:00:02.280 variety is the spice of life and walking
+00:00:05.680 is good exercise if you combine these
+00:00:08.240 two things you get a random walk as the
+00:00:10.679 name suggests in a random walk your
+00:00:12.360 direction is chosen at random at each
+00:00:14.240 step along the way today we will use
+00:00:17.039 Python to solve a random walk puzzle
+00:00:19.240 using Monte Carlo
+00:00:20.880 simulations this concludes my gamble
+00:00:23.320 amble
+00:00:26.320 Preamble suppose you live in a city
+00:00:28.400 where the streets are arranged in a grid
+00:00:31.359 you decide to go for a walk at each
+00:00:34.360 intersection you choose your next
+00:00:36.000 Direction
+00:00:37.160 randomly your four choices are north
+00:00:39.559 south east or west and backtracking is
+00:00:43.280 permitted once you finished with your
+00:00:45.440 walk you check to see how far away you
+00:00:47.559 are from where you began if you are more
+00:00:50.320 than four blocks away you will pay for a
+00:00:52.719 transport back home otherwise you will
+00:00:55.039 just walk what is the longest random
+00:00:57.879 walk you can take so that on average you
+00:01:00.160 will end up four blocks or fewer from
+00:01:04.400 home we will Begin by writing a function
+00:01:06.920 to simulate a random walk of n blocks we
+00:01:09.880 will write this function twice the first
+00:01:12.320 version will be clear simple and
+00:01:14.240 straightforward in the second version we
+00:01:16.240 will use some python shortcuts to cut
+00:01:18.360 the length of the function in half to
+00:01:21.040 begin import the random module we will
+00:01:24.240 call our function random walk and the
+00:01:27.200 input n will be the number of blocks to
+00:01:29.200 walk
+00:01:30.560 write a short Doc string describing the
+00:01:32.399 purpose of this function your position
+00:01:35.000 in the grid will have an x and y
+00:01:37.079 coordinate initially xal 0 and y equal 0
+00:01:41.880 we will now take the random walk to do
+00:01:44.719 this we will use a for loop with n steps
+00:01:47.680 to pick a random step we will use the
+00:01:49.399 choice function we will choose from a
+00:01:51.880 list of the four possible directions
+00:01:54.119 north south east or west if the random
+00:01:58.159 step is north then increase the y
+00:02:00.079 coordinate by 1 if it's South decrease
+00:02:03.719 the y-coordinate by 1 if it's East
+00:02:06.880 increase the x coordinate and now the
+00:02:09.479 only remaining alternative is West so
+00:02:11.959 for the final else block decrease the x
+00:02:14.120 coordinate by
+00:02:15.480 one at this point the walk is over so we
+00:02:18.959 return the coordinates as a
+00:02:20.680 tupal to test this function let's take
+00:02:23.360 25 random walks each 10 blocks long for
+00:02:27.080 each walk we will display the
+00:02:28.440 coordinates and the distance from home
+00:02:30.840 the distance from home is the sum of the
+00:02:32.599 absolute values of the X and Y
+00:02:34.760 coordinates this is because the sign is
+00:02:36.840 for direction not distance for example
+00:02:40.519 suppose you ended up at X = -10 or x =
+00:02:44.120 10 in both cases you are 10 blocks from
+00:02:46.879 home the sign only indicates if you are
+00:02:49.280 east or west from your starting
+00:02:51.400 position now
+00:02:53.519 run everything looks to be in
+00:02:56.159 order before solving the puzzle let's
+00:02:58.519 write a second version of this function
+00:02:59.840 function that is more compact we will
+00:03:02.239 call this function random walk 2 we will
+00:03:05.200 perform our solemn programmer's Duty and
+00:03:07.120 write a doc string as before let's
+00:03:10.360 initialize X and Y in Python this can be
+00:03:13.360 done in one line This assigns the first
+00:03:16.080 zero to X and the second zero to Y once
+00:03:19.720 more we will use a for Loop to simulate
+00:03:21.640 the N blocks previously we randomly
+00:03:24.599 chose a letter and then use the letter
+00:03:26.599 to update the X and Y coordinates this
+00:03:29.879 time we will randomly choose a pair of
+00:03:31.560 numbers DX and Dy which will contain the
+00:03:34.720 values we will add or subtract from X
+00:03:36.879 and Y we use DX and Dy as abbreviations
+00:03:40.720 for difference in X and difference in y
+00:03:44.280 now we randomly choose a direction if
+00:03:47.040 North is chosen the x coordinate does
+00:03:49.280 not change but the y-coordinate
+00:03:51.480 increases by one if South is chosen X is
+00:03:55.319 again unchanged and Y decreases by one
+00:03:58.760 for East X X increases by 1 and Y is
+00:04:01.799 unchanged and finally for West we
+00:04:04.720 subtract 1 from X and leave y unchanged
+00:04:08.280 we now use DX and Dy to update X and Y X
+00:04:12.720 +al DX is shorthand for X = X Plus DX we
+00:04:17.358 update y the same way and finally return
+00:04:20.759 X and Y let's now test this function to
+00:04:24.120 see if it behaves as expected like
+00:04:26.880 before we will take 25 random walks each
+00:04:30.080 walk will be for 10 blocks and we will
+00:04:32.800 print the final coordinates along with
+00:04:34.440 the distance from
+00:04:35.639 home
+00:04:37.400 run no errors and no
+00:04:40.960 surprises let's now return to the
+00:04:43.000 original puzzle what's the longest
+00:04:45.360 random walk you can take so that on
+00:04:47.120 average you will end up four blocks or
+00:04:48.639 fewer from home in other words there is
+00:04:51.560 less than a 50% chance you'll pay for
+00:04:53.759 transport home this can be solved
+00:04:56.120 mathematically but instead we will use
+00:04:58.120 the Monte Carlo method this technique is
+00:05:00.759 named after the city of Monte Carlo a
+00:05:03.039 gambling town on the Mediterranean Sea
+00:05:05.919 you will never find a more wretched Hive
+00:05:07.800 of scum and
+00:05:09.360 villainy here instead of solving the
+00:05:11.680 problem mathematically we will conduct
+00:05:13.639 thousands of random trials and compute
+00:05:15.520 the percentage of random walks that end
+00:05:17.400 in a short walk home to get an accurate
+00:05:20.199 number we will take 10,000 random walks
+00:05:22.800 for each walk size let's estimate the
+00:05:26.000 probability you will walk home for walks
+00:05:27.880 of length 1 to 30 blocks
+00:05:30.240 don't forget the range function stops
+00:05:32.720 before the final number let's create a
+00:05:35.400 counter called No transport to keep
+00:05:37.720 track of the number of random walks that
+00:05:39.400 end four blocks or fewer from home let's
+00:05:42.720 now begin our Monte Carlo Loop of 10,000
+00:05:45.440 samples first get a random walk of
+00:05:48.000 length walk length next compute the
+00:05:51.199 distance from home if the distance is
+00:05:54.120 less than or equal to four increment the
+00:05:56.440 no transport
+00:05:57.880 counter we can now compute comp the
+00:06:00.000 percent of random walks that ended with
+00:06:01.880 a walk home it's just the fraction of
+00:06:04.800 the 10,000 random walks which required
+00:06:06.960 no
+00:06:07.759 transport and finally print out the
+00:06:10.440 results for this walk
+00:06:12.240 size
+00:06:15.120 run fascinating the longest walk with a
+00:06:18.400 greater than 50% chance of walking home
+00:06:20.800 is a walk of size 22
+00:06:23.000 blocks let's run this simulation one
+00:06:25.440 more time and to increase our confidence
+00:06:28.000 let's use 20,000 random walks to
+00:06:30.319 estimate the
+00:06:33.800 probability there you have it we get the
+00:06:36.479 same answer by the way your numbers will
+00:06:39.120 be slightly different from these that's
+00:06:41.520 because Monte Carlo methods use random
+00:06:43.680 samples and different simulations should
+00:06:46.080 give slightly different results
+00:06:48.800 observe that walks with an even number of blocks
+00:06:50.599 leave you closer to home than walks one
+00:06:52.639 block shorter in general even walks and
+00:06:55.720 closer to home than odd walks I
+00:06:58.120 encourage you to discuss and analy ize
+00:06:59.879 this phenomenon in the comments
+00:07:04.160 below random walks are a fascinating
+00:07:06.919 subject they are used to model many
+00:07:09.080 different problems from the motion of
+00:07:10.919 molecules in a fluid to the movements of
+00:07:13.240 stock markets as a challenge try to find
+00:07:16.560 the longest random walk which will on
+00:07:18.720 average leave you less than five blocks
+00:07:20.520 from home and as a courtesy please
+00:07:24.039 consider subscribing to socratica the
+00:07:26.440 more support we have the less random our
+00:07:28.319 release schedule will'll be
+00:07:49.460 [Music]
