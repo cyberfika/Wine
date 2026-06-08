@@ -4,8 +4,20 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Add data processing scripts and detailed dataset summaries">
+    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Update workspace configuration and add new LaTeX documents for regression analysis">
+      <change afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AtividadeA14/MetodosQuantitativos-CC-12.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AtividadeA14/Trabalho-A14-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/AtividadeA16/Trabalho-A16-MetodosQuantitativos.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/Book_EstatBas-Morettin-Bussab.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/Done/Trabalho-A12-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/Done/trabalho_tde02_regressao_linear_multipla.tex" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/Trabalho-A16-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/docs/probability-statistics-for-engineers-scientists_compress.pdf" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/Trabalho-A12-MetodosQuantitativos-CC-2026.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/probability-statistics-for-engineers-scientists_compress 95.pdf" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/docs/trabalho_tde02_regressao_linear_multipla.tex" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,7 +49,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="152" />
+    <option name="cachedIndexableFilesCount" value="172" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -67,30 +79,30 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "ModuleVcsDetector.initialDetectionPerformed": "true",
-    "Python.main.executor": "Run",
-    "RunOnceActivity.MCP Project settings loaded": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
-    "codeWithMe.voiceChat.enabledByDefault": "false",
-    "com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1": "true",
-    "git-widget-placeholder": "main",
-    "junie.onboarding.icon.badge.shown": "true",
-    "last_opened_file_path": "D:/Projects/wine",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "settings.editor.selected.configurable": "com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable",
-    "to.speed.mode.migration.done": "true",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ModuleVcsDetector.initialDetectionPerformed&quot;: &quot;true&quot;,
+    &quot;Python.main.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.MCP Project settings loaded&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.typescript.service.memoryLimit.init&quot;: &quot;true&quot;,
+    &quot;codeWithMe.voiceChat.enabledByDefault&quot;: &quot;false&quot;,
+    &quot;com.intellij.ml.llm.matterhorn.ej.ui.settings.DefaultModelSelectionForGA.v1&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;junie.onboarding.icon.badge.shown&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;D:/Projects/wine&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable&quot;,
+    &quot;to.speed.mode.migration.done&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\Projects\wine\MQC" />
@@ -118,7 +130,12 @@
       <workItem from="1778248406927" duration="3987000" />
       <workItem from="1778501230611" duration="26000" />
       <workItem from="1778510191474" duration="6460000" />
-      <workItem from="1780340192877" duration="3190000" />
+      <workItem from="1780340192877" duration="3340000" />
+      <workItem from="1780406746343" duration="95000" />
+      <workItem from="1780930260109" duration="1366000" />
+      <workItem from="1780937424353" duration="1806000" />
+      <workItem from="1780942374423" duration="81000" />
+      <workItem from="1780942484392" duration="658000" />
     </task>
     <task id="LOCAL-00001" summary="feat: First commit -- Notebook and datasets">
       <option name="closed" value="true" />
@@ -152,7 +169,15 @@
       <option name="project" value="LOCAL" />
       <updated>1780340711402</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="feat: Add notebook solving confidence interval exercises with step-by-step explanations">
+      <option name="closed" value="true" />
+      <created>1780343549914</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1780343549914</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -163,7 +188,9 @@
     <MESSAGE value="doc: README" />
     <MESSAGE value="feat: Deleted unused files" />
     <MESSAGE value="feat: Add data processing scripts and detailed dataset summaries" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: Add data processing scripts and detailed dataset summaries" />
+    <MESSAGE value="feat: Add notebook solving confidence interval exercises with step-by-step explanations" />
+    <MESSAGE value="feat: Update workspace configuration and add new LaTeX documents for regression analysis" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Update workspace configuration and add new LaTeX documents for regression analysis" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Wine$main.coverage" NAME="main Coverage Results" MODIFIED="1778517566732" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tde02-regressao-linear-multipla/src" />

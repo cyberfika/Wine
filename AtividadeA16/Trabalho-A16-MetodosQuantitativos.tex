@@ -1,0 +1,373 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf-8]{inputenc}
+\usepackage[brazilian]{babel}
+\usepackage[top=3cm,left=3cm,bottom=2cm,right=2cm]{geometry}
+\usepackage{times}
+\usepackage{setspace}
+\usepackage{indentfirst}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{url}
+\usepackage{hyperref}
+
+% Configurar espaçamento duplo
+\onehalfspacing
+
+% Configurar a fonte Times New Roman
+\renewcommand{\rmdefault}{ptm}
+
+\title{\textbf{Geração de Variáveis Aleatórias}}
+\author{Ciência da Computação}
+\date{Junho de 2026}
+
+\begin{document}
+
+% CAPA
+\begin{titlepage}
+\begin{center}
+\large
+\textbf{PONTIFÍCIA UNIVERSIDADE CATÓLICA DO PARANÁ} \\
+Escola Politécnica \\
+Curso: Ciência da Computação \\
+Disciplina: Métodos Quantitativos \\
+
+\vspace{3cm}
+
+\Large
+\textbf{Geração de Variáveis Aleatórias} \\
+
+\vspace{3cm}
+
+\normalsize
+Atividade A16 \\
+01 de junho de 2026 \\
+
+\vfill
+
+\end{center}
+\end{titlepage}
+
+% SUMÁRIO
+\tableofcontents
+\newpage
+
+% INTRODUÇÃO
+\section{Introdução}
+
+Variáveis aleatórias são conceitos fundamentais em probabilidade e estatística. A geração de números aleatórios é essencial em diversas aplicações computacionais, desde simulações científicas até criptografia. Este trabalho apresenta uma pesquisa abrangente sobre técnicas de geração de variáveis aleatórias, métodos para sua avaliação e o funcionamento de geradores modernos.
+
+\newpage
+
+% QUESTÃO 1
+\section{Situações que Usam Geradores de Números Aleatórios}
+
+\subsection{Simulação de Sistemas Complexos}
+
+A simulação de Monte Carlo é uma das aplicações mais importantes de geradores de números aleatórios. Utilizando sequências aleatórias, é possível simular comportamentos de sistemas físicos, biológicos e econômicos que seriam difíceis ou impossíveis de resolver analiticamente. Exemplos incluem:
+
+\begin{itemize}
+    \item Simulação do comportamento de partículas em física quântica;
+    \item Avaliação de risco em portfólios de investimento;
+    \item Modelagem de fenômenos naturais como movimentos de fluidos ou propagação de radiação;
+    \item Estimativa de integrais definidas através da amostragem aleatória.
+\end{itemize}
+
+Na simulação de Monte Carlo, gera-se uma grande quantidade de números aleatórios distribuídos de acordo com probabilidades específicas do sistema. Com suficientes amostras, a distribuição dos resultados converge para valores reais do sistema, permitindo estimativas precisas de grandezas difíceis de calcular diretamente.
+
+\subsection{Criptografia e Segurança}
+
+Geradores de números aleatórios são fundamentais em criptografia moderna. Números verdadeiramente aleatórios (ou pseudo-aleatórios de alta qualidade) são necessários para:
+
+\begin{itemize}
+    \item Geração de chaves criptográficas seguras em algoritmos de encriptação como RSA e AES;
+    \item Criação de vetores de inicialização (IV) em modos de cifra por bloco;
+    \item Geração de nonces e tokens de autenticação únicos;
+    \item Salting em funções de hash criptográficas para proteção de senhas.
+\end{itemize}
+
+A qualidade do gerador de números aleatórios em aplicações criptográficas é crítica. Um gerador fraco ou previsível comprometeria toda a segurança do sistema. Por isso, aplicações de segurança utilizam geradores criptograficamente seguros, que passam por rigorosos testes estatísticos.
+
+\newpage
+
+% QUESTÃO 2
+\section{Método de Geração de Números Aleatórios: Linear Congruente}
+
+\subsection{Descrição do Método}
+
+O Gerador Linear Congruente (LCG) é um dos métodos mais antigos e simples para gerar números pseudo-aleatórios. Sua fórmula é:
+
+\begin{equation}
+X_{n+1} = (a \cdot X_n + c) \mod m
+\end{equation}
+
+Onde:
+\begin{itemize}
+    \item $X_n$ é o enésimo número gerado;
+    \item $a$ é o multiplicador;
+    \item $c$ é o incremento;
+    \item $m$ é o módulo;
+    \item $X_0$ é a semente inicial.
+\end{itemize}
+
+Para gerar números no intervalo $[0, 1)$, normaliza-se o resultado:
+
+\begin{equation}
+U_n = \frac{X_n}{m}
+\end{equation}
+
+\subsection{Exemplo Prático}
+
+Considere os parâmetros: $a = 1103515245$, $c = 12345$, $m = 2^{31}$ e $X_0 = 1$. A sequência gerada seria:
+
+\begin{align*}
+X_1 &= (1103515245 \times 1 + 12345) \bmod 2^{31} = 1103527590 \\
+U_1 &= \frac{1103527590}{2^{31}} \approx 0.5140 \\
+X_2 &= (1103515245 \times 1103527590 + 12345) \bmod 2^{31} = ... \\
+\end{align*}
+
+\subsection{Vantagens e Desvantagens}
+
+\textbf{Vantagens:}
+\begin{itemize}
+    \item Simples de implementar;
+    \item Rápido computacionalmente;
+    \item Completamente determinístico e reproduzível.
+\end{itemize}
+
+\textbf{Desvantagens:}
+\begin{itemize}
+    \item Qualidade estatística inferior comparado a métodos modernos;
+    \item Períodos curtos com certos parâmetros;
+    \item Números sucessivos apresentam correlação (especialmente os bits menos significativos);
+    \item Não adequado para aplicações criptográficas;
+    \item Padrões de baixa dimensionalidade (problemas com pares e tríadas consecutivas).
+\end{itemize}
+
+\newpage
+
+% QUESTÃO 3
+\section{Avaliação da Qualidade de Sequências de Números Aleatórios}
+
+\subsection{Testes Estatísticos Básicos}
+
+Para avaliar se uma sequência de números aleatórios é adequada para aplicações, diversos testes estatísticos podem ser aplicados:
+
+\subsubsection{Teste de Uniformidade (Teste de Kolmogorov-Smirnov)}
+
+Verifica se a sequência segue uma distribuição uniforme no intervalo $[0, 1)$. A estatística do teste é:
+
+\begin{equation}
+D = \max|F_n(x) - F(x)|
+\end{equation}
+
+Onde $F_n(x)$ é a função de distribuição empírica e $F(x)$ é a função de distribuição teórica. Um valor pequeno de $D$ indica boa uniformidade.
+
+\subsubsection{Teste do Qui-Quadrado}
+
+Divide o intervalo $[0, 1)$ em $k$ subintervalos iguais, conta quantos números caem em cada intervalo, e compara com a frequência esperada:
+
+\begin{equation}
+\chi^2 = \sum_{i=1}^{k} \frac{(O_i - E_i)^2}{E_i}
+\end{equation}
+
+Onde $O_i$ é a frequência observada e $E_i$ é a frequência esperada. A sequência é considerada adequada se $\chi^2$ não exceder o valor crítico da tabela chi-quadrado.
+
+\subsubsection{Teste de Autocorrelação}
+
+Verifica se há dependência entre números consecutivos ou números separados por um lag $\tau$. A autocorrelação é:
+
+\begin{equation}
+\rho_\tau = \frac{\sum_{i=1}^{n-\tau}(U_i - \bar{U})(U_{i+\tau} - \bar{U})}{\sum_{i=1}^{n}(U_i - \bar{U})^2}
+\end{equation}
+
+Uma sequência de qualidade deve ter $\rho_\tau$ próximo de zero.
+
+\subsection{Testes Estatísticos Avançados}
+
+\subsubsection{Teste de Frequência (Monobit Test)}
+
+Verifica se existem quantidades aproximadamente iguais de zeros e uns na representação binária dos números aleatórios.
+
+\subsubsection{Teste de Runs}
+
+Avalia se há mudanças apropriadas entre valores consecutivos na sequência. Runs muito longos indicam falta de aleatoriedade.
+
+\subsubsection{Teste de Entropia}
+
+Calcula a entropia de Shannon da sequência. Uma sequência verdadeiramente aleatória deve ter entropia máxima para seu conjunto de símbolos.
+
+\subsection{Suites de Teste Conhecidas}
+
+Existem suites de testes padronizadas:
+
+\begin{itemize}
+    \item \textbf{Diehard Tests}: 15 testes estatísticos para geradores de números aleatórios;
+    \item \textbf{NIST Statistical Test Suite}: Suite desenvolvida pelo NIST com 15 testes para avaliação criptográfica;
+    \item \textbf{TestU01}: Biblioteca em C com centenas de testes incluindo os anteriores.
+\end{itemize}
+
+\newpage
+
+% QUESTÃO 4
+\section{Mersenne Twister}
+
+\subsection{História e Características}
+
+O Mersenne Twister é um gerador de números pseudo-aleatórios desenvolvido por Matsumoto e Nishimura em 1997. É amplamente utilizado em aplicações científicas e em muitas linguagens de programação (Python, Ruby, C++11, etc.). O nome se deve ao fato de usar números primos de Mersenne.
+
+\textbf{Características principais:}
+\begin{itemize}
+    \item Período muito longo: $2^{19937} - 1$ (aproximadamente $10^{6000}$);
+    \item Excelentes propriedades estatísticas de 623 dimensões;
+    \item Rápido: gera 32 bits (ou 64 bits na versão MT19937-64) por iteração;
+    \item Não é adequado para criptografia, pois é previsível com poucos valores observados;
+    \item Implementação simples e bem documentada.
+\end{itemize}
+
+\subsection{Algoritmo}
+
+O Mersenne Twister funciona sobre um vetor de estado de 624 valores de 32 bits. O algoritmo pode ser resumido em:
+
+\subsubsection{1. Inicialização (Seeding)}
+
+Dado uma semente $x_0$, inicializa-se o vetor de estado $\mathbf{MT}[0..623]$:
+
+\begin{equation}
+\text{MT}[i] = f(i, \text{MT}[i-1])
+\end{equation}
+
+Onde $f$ é uma função de inicialização que garante boa distribuição do estado inicial.
+
+\subsubsection{2. Geração de Números}
+
+O processo ocorre em duas fases:
+
+\textbf{Fase 1: Twist (Recorrência Linear)}
+
+A cada iteração, atualiza-se o vetor de estado usando uma operação de recorrência baseada em números primos de Mersenne:
+
+\begin{equation}
+\text{MT}[i] = \text{MT}[(i+m) \bmod n] \oplus (\text{upper}(\text{MT}[i]) | \text{lower}(\text{MT}[i+1])) \gg 1) \oplus A
+\end{equation}
+
+Onde:
+\begin{itemize}
+    \item $n = 624$ é o tamanho do vetor de estado;
+    \item $m = 397$ é um parâmetro de deslocamento;
+    \item $\oplus$ é a operação XOR;
+    \item $\gg$ é shift (deslocamento) à direita;
+    \item $A$ é uma matriz constante;
+    \item \texttt{upper} e \texttt{lower} extraem os bits mais e menos significativos.
+\end{itemize}
+
+\textbf{Fase 2: Tempering (Temperagem)}
+
+O valor extraído sofre transformações (tempering) para melhorar propriedades estatísticas:
+
+\begin{align}
+y &= \text{MT}[i] \\
+y &= y \oplus (y \gg 11) \\
+y &= y \oplus ((y \ll 7) \text{ AND } 0x9d2c5680) \\
+y &= y \oplus ((y \ll 15) \text{ AND } 0xefc60000) \\
+y &= y \oplus (y \gg 18)
+\end{align}
+
+O valor $y$ é então retornado como o número pseudo-aleatório.
+
+\subsection{Implementação Conceitual}
+
+O pseudocódigo básico é:
+
+\begin{verbatim}
+função inicializa(semente):
+    MT[0] = semente
+    para i de 1 até 623:
+        MT[i] = lowestW bits de (f * (MT[i-1] ^ (MT[i-1] >> (W-2))) + i)
+
+função extrai_número():
+    se índice >= 624:
+        twist()
+    y = MT[índice]
+    y = tempering(y)
+    índice = índice + 1
+    retorna y
+
+função twist():
+    para i de 0 até 623:
+        x = (MT[i] & UPPER_MASK) | (MT[(i+1) mod 624] & LOWER_MASK)
+        MT[i] = MT[(i+397) mod 624] ^ (x >> 1) ^ ((x & 1) * 0x9908b0df)
+    índice = 0
+\end{verbatim}
+
+\subsection{Vantagens}
+
+\begin{itemize}
+    \item Período extremamente longo ($2^{19937} - 1$);
+    \item Distribuição uniforme em 623 dimensões;
+    \item Rápido e eficiente;
+    \item Implementação simples e disponível em muitas linguagens;
+    \item Estável e amplamente testado;
+    \item Produz sequências de alta qualidade para simulações científicas.
+\end{itemize}
+
+\subsection{Limitações}
+
+\begin{itemize}
+    \item Não é criptograficamente seguro (pode ser predito com observação de 624 valores consecutivos);
+    \item Usa muita memória (624 × 4 bytes = 2.5 KB apenas para estado);
+    \item Inicialização simples pode produzir correlações em múltiplas instâncias com sementes próximas;
+    \item Alguns bits têm períodos menores que o período total.
+\end{itemize}
+
+\subsection{Variantes}
+
+Existem variantes do Mersenne Twister para diferentes propósitos:
+
+\begin{itemize}
+    \item \textbf{MT19937-64}: Versão de 64 bits com período $2^{19937} - 1$;
+    \item \textbf{SFMT (SIMD-oriented Fast Mersenne Twister)}: Versão otimizada para processadores modernos com instruções SIMD;
+    \item \textbf{dSFMT}: Variante que gera números em ponto flutuante diretamente.
+\end{itemize}
+
+\newpage
+
+% CONCLUSÃO
+\section{Conclusão}
+
+A geração de números aleatórios é uma área fundamental da computação com aplicações vastas em simulação, criptografia e análise estatística. Desde métodos simples como o gerador linear congruente até algoritmos sofisticados como o Mersenne Twister, a evolução desses geradores reflete a importância crescente da qualidade e eficiência em aplicações modernas.
+
+O Mersenne Twister se consolidou como um padrão de fato para aplicações científicas devido ao seu excelente balance entre período longo, qualidade estatística e velocidade de execução. Entretanto, compreender limitações e aplicar testes estatísticos apropriados permanece essencial para garantir que a sequência gerada seja adequada para cada contexto específico.
+
+\newpage
+
+% REFERÊNCIAS
+\begin{thebibliography}{99}
+
+\bibitem{wikipedia_va}
+Wikipedia. \textbf{Variável Aleatória}. Disponível em: \url{https://pt.wikipedia.org/wiki/Variável_aleatória}. Acesso em: 1 jun. 2026.
+
+\bibitem{wikipedia_mt}
+Wikipedia. \textbf{Mersenne Twister}. Disponível em: \url{https://en.wikipedia.org/wiki/Mersenne_Twister}. Acesso em: 1 jun. 2026.
+
+\bibitem{matsumoto1998}
+Matsumoto, M.; Nishimura, T. \textbf{Mersenne Twister: a 623-dimensionally equidistributed uniform pseudo-random number generator}. \textit{ACM Transactions on Modeling and Computer Simulation}, v. 8, n. 1, p. 3-30, 1998.
+
+\bibitem{saito2008}
+Saito, M.; Matsumoto, M. \textbf{SIMD-oriented Fast Mersenne Twister: a 128-bit Pseudorandom Number Generator}. In: \textit{International Conference on Monte Carlo Methods and Applications}. 2008.
+
+\bibitem{nist2010}
+NIST. \textbf{A Statistical Test Suite for Random and Pseudorandom Number Generators for Cryptographic Applications}. Special Publication 800-22 Rev. 3a. Disponível em: \url{https://nvlpubs.nist.gov/nistpubs/Legacy/SP/nistspecialpublication800-22r1a.pdf}. 2010.
+
+\bibitem{knuth1997}
+Knuth, D. E. \textbf{The art of computer programming: Volume 2, Seminumerical algorithms}. 3. ed. Addison-Wesley, 1997.
+
+\bibitem{lecuyer2006}
+L'Ecuyer, P. \textbf{Handbook of Computational Statistics: Concepts and Methods}. In: \textit{Pseudo-Random Number Generators}. Springer, 2006. Cap. 3.
+
+\bibitem{nvidia2010}
+NVIDIA. \textbf{Mersenne Twister Applied to Surface Scattering}. CUDA SDK. 2010.
+
+\end{thebibliography}
+
+\end{document}
