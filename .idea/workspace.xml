@@ -4,21 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Update workspace configuration and add new LaTeX documents for regression analysis">
-      <change afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AtividadeA14/MetodosQuantitativos-CC-12.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AtividadeA14/Trabalho-A14-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/AtividadeA16/Trabalho-A16-MetodosQuantitativos.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Book_EstatBas-Morettin-Bussab.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Done/Trabalho-A12-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Done/trabalho_tde02_regressao_linear_multipla.tex" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/Trabalho-A16-MetodosQuantitativos-CC-2026.pdf" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/probability-statistics-for-engineers-scientists_compress.pdf" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/Trabalho-A12-MetodosQuantitativos-CC-2026.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/probability-statistics-for-engineers-scientists_compress 95.pdf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/trabalho_tde02_regressao_linear_multipla.tex" beforeDir="false" />
-    </list>
+    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Update workspace configuration and add new LaTeX documents for regression analysis" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
