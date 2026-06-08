@@ -54,25 +54,25 @@
 
 \subsection*{Situação-Problema}
 
-O gerente de TI de uma empresa de software afirma que o tempo médio de resposta
-do sistema de atendimento ao cliente é de 3{,}0 segundos. Um analista de
-qualidade suspeita que o tempo médio seja diferente disso. Para verificar, ele
-coletou uma amostra aleatória de \textbf{45 requisições}, obtendo:
+Um enólogo deseja verificar se o teor médio de álcool dos vinhos tintos da base
+Wine Quality é diferente de \textbf{10,0\%}. Ele coleta uma amostra de
+\textbf{1.599 vinhos tintos} da base de dados UCI Machine Learning Repository,
+obtendo:
 
 \begin{itemize}
-  \item Média amostral: $\bar{X} = 3{,}42$ segundos
-  \item Desvio padrão amostral: $S_X = 1{,}20$ segundos
+  \item Média amostral: $\bar{X} = 10{,}423\%$
+  \item Desvio padrão amostral: $S_X = 1{,}066\%$
 \end{itemize}
 
-Com \textbf{95\% de confiança}, o valor de 3{,}0 segundos pode ser considerado
-representativo do tempo médio de resposta?
+Com \textbf{95\% de confiança}, o valor de 10,0\% pode ser considerado
+representativo do teor alcoólico médio dos vinhos tintos?
 
 \subsection*{Solução}
 
 \textbf{Passo 1: Hipóteses}
 
 \[
-  H_0: \mu = 3{,}0 \text{ s} \qquad H_1: \mu \neq 3{,}0 \text{ s}
+  H_0: \mu = 10{,}0\% \qquad H_1: \mu \neq 10{,}0\%
 \]
 
 Trata-se de um teste \textbf{bilateral (duas caudas)}.
@@ -85,25 +85,25 @@ Trata-se de um teste \textbf{bilateral (duas caudas)}.
 
 \textbf{Passo 3: Intervalo de confiança}
 
-Como $n = 45 > 30$, utiliza-se a distribuição $Z$ (normal):
+Como $n = 1599 > 30$, utiliza-se a distribuição $Z$ (normal):
 
 \[
   \mu = \bar{X} \pm Z \cdot \frac{S_X}{\sqrt{n}}
-      = 3{,}42 \pm 1{,}96 \cdot \frac{1{,}20}{\sqrt{45}}
-      = 3{,}42 \pm 1{,}96 \cdot 0{,}1789
-      = 3{,}42 \pm 0{,}3507
+      = 10{,}423 \pm 1{,}96 \cdot \frac{1{,}066}{\sqrt{1599}}
+      = 10{,}423 \pm 1{,}96 \cdot 0{,}02668
+      = 10{,}423 \pm 0{,}0523
 \]
 
 \[
-  \boxed{\mu \in \left(3{,}069\ ;\ 3{,}771\right)}
+  \boxed{\mu \in \left(10{,}371\ ;\ 10{,}475\right)}
 \]
 
 \textbf{Passo 4: Decisão}
 
-O valor $\mu_0 = 3{,}0$ \textbf{não está contido} no intervalo $(3{,}069\ ;\ 3{,}771)$.
+O valor $\mu_0 = 10{,}0$ \textbf{não está contido} no intervalo $(10{,}371\ ;\ 10{,}475)$.
 Portanto, há evidência suficiente para \textbf{rejeitar $H_0$} ao nível de
-significância de 5\%. O tempo médio de resposta é significativamente diferente
-de 3{,}0 segundos.
+significância de 5\%. O teor alcoólico médio dos vinhos tintos é significativamente diferente
+de 10,0\%.
 
 \subsection*{Pseudocódigo}
 
@@ -123,6 +123,35 @@ de 3{,}0 segundos.
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection*{Explicação do Pseudocódigo}
+
+Este algoritmo implementa o teste de hipótese baseado em intervalo de confiança para uma
+população com variância desconhecida e grande amostra. A lógica funciona da seguinte forma:
+
+\begin{enumerate}
+  \item \textbf{Entrada de parâmetros}: O algoritmo recebe a média amostral ($\bar{X}$),
+  o desvio padrão amostral ($S_X$), o tamanho da amostra ($n$), o valor hipotético ($\mu_0$)
+  e o nível de significância ($\alpha$).
+
+  \item \textbf{Obtenção do valor crítico}: A função $z\_critico(\alpha)$ retorna o valor crítico
+  da distribuição normal padrão. Para $\alpha = 0{,}05$ (teste bilateral), o valor é $\pm 1{,}96$,
+  o que significa que 95\% da distribuição está concentrada no intervalo central.
+
+  \item \textbf{Cálculo do erro padrão}: O termo $\dfrac{S_X}{\sqrt{n}}$ representa o desvio padrão
+  da distribuição amostral das médias. Multiplicado pelo valor crítico, produz a \textit{margem de erro},
+  que é adicionada e subtraída da média amostral para construir o intervalo de confiança.
+
+  \item \textbf{Construção do intervalo}: Os limites inferior ($LI$) e superior ($LS$) definem
+  um intervalo que, com probabilidade $1-\alpha$, contém o verdadeiro parâmetro populacional.
+
+  \item \textbf{Regra de decisão}: Se o valor hipotético $\mu_0$ cair fora do intervalo, há evidência
+  suficiente para rejeitar a hipótese nula. Caso contrário, não há evidência para rejeição.
+
+  \item \textbf{Vantagem}: Este método é intuitivo porque a decisão é baseada diretamente na
+  construção de um intervalo de confiança, eliminando a necessidade de calcular manualmente
+  a estatística de teste.
+\end{enumerate}
+
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════════════════
@@ -131,58 +160,57 @@ de 3{,}0 segundos.
 
 \subsection*{Situação-Problema}
 
-Uma universidade quer verificar se existe diferença na quantidade média diária de
-commits em dois repositórios de projetos distintos: o \textbf{Repositório A}
-(projetos de graduação) e o \textbf{Repositório B} (projetos de pós-graduação).
-Foram coletadas as seguintes informações:
+Uma vinícola deseja verificar se existe diferença significativa no teor alcoólico
+médio entre dois tipos de vinho da base Wine Quality: \textbf{vinho tinto} e
+\textbf{vinho branco}. Foram coletadas as seguintes informações:
 
 \begin{center}
 \begin{tabular}{lcc}
   \toprule
-  & \textbf{Repositório A} & \textbf{Repositório B} \\
+  & \textbf{Vinho Tinto} & \textbf{Vinho Branco} \\
   \midrule
-  Tamanho da amostra ($n$) & 50        & 60       \\
-  Média ($\bar{X}$)        & 12{,}30   & 13{,}85  \\
-  Variância ($S^2$)        & 8{,}00    & 12{,}50  \\
+  Tamanho da amostra ($n$) & 1.599      & 4.898     \\
+  Média alcoólica ($\bar{X}$, \%) & 10{,}423   & 10{,}514  \\
+  Variância ($S^2$)        & 1{,}136    & 1{,}514  \\
   \bottomrule
 \end{tabular}
 \end{center}
 
-Com \textbf{significância de 5\%}, há diferença significativa entre as médias?
+Com \textbf{significância de 5\%}, há diferença significativa entre o teor alcoólico médio?
 
 \subsection*{Solução}
 
 \textbf{Hipóteses}
 
 \[
-  H_0: \mu_1 = \mu_2 \qquad H_1: \mu_1 \neq \mu_2
+  H_0: \mu_{\text{tinto}} = \mu_{\text{branco}} \qquad H_1: \mu_{\text{tinto}} \neq \mu_{\text{branco}}
 \]
 
 \textbf{Estatística $Z_0$}
 
-Como $n_1 = 50 > 30$ e $n_2 = 60 > 30$, e as variâncias populacionais são
+Como $n_1 = 1599 > 30$ e $n_2 = 4898 > 30$, e as variâncias populacionais são
 desconhecidas, usa-se a aproximação pelas variâncias amostrais:
 
 \[
   Z_0 = \frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}
              {\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}
-      = \frac{(12{,}30 - 13{,}85) - 0}
-             {\sqrt{\dfrac{8{,}00}{50} + \dfrac{12{,}50}{60}}}
+      = \frac{(10{,}423 - 10{,}514) - 0}
+             {\sqrt{\dfrac{1{,}136}{1599} + \dfrac{1{,}514}{4898}}}
 \]
 
 \[
-  Z_0 = \frac{-1{,}55}{\sqrt{0{,}16 + 0{,}2083}}
-      = \frac{-1{,}55}{\sqrt{0{,}3683}}
-      = \frac{-1{,}55}{0{,}6069}
-      \approx -2{,}55
+  Z_0 = \frac{-0{,}091}{\sqrt{0{,}000710 + 0{,}000309}}
+      = \frac{-0{,}091}{\sqrt{0{,}001019}}
+      = \frac{-0{,}091}{0{,}03192}
+      \approx -2{,}85
 \]
 
 \textbf{Decisão}
 
 O valor crítico para $\alpha = 0{,}05$ bilateral é $Z = \pm 1{,}96$.
-Como $|{-2{,}55}| = 2{,}55 > 1{,}96$, o valor calculado está \textbf{fora}
+Como $|{-2{,}85}| = 2{,}85 > 1{,}96$, o valor calculado está \textbf{fora}
 da região de não-rejeição. Portanto, \textbf{rejeita-se $H_0$}: há diferença
-significativa entre as médias de commits dos dois repositórios.
+significativa entre o teor alcoólico médio de vinhos tintos e brancos.
 
 \subsection*{Pseudocódigo}
 
@@ -201,6 +229,34 @@ significativa entre as médias de commits dos dois repositórios.
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection*{Explicação do Pseudocódigo}
+
+Este algoritmo testa se há diferença significativa entre as médias de duas populações
+independentes, ambas com amostras grandes. O procedimento é o seguinte:
+
+\begin{enumerate}
+  \item \textbf{Entrada de dados}: O algoritmo recebe as duas médias amostrais, variâncias
+  e tamanhos de amostra de cada grupo, além do nível de significância.
+
+  \item \textbf{Erro padrão da diferença}: A expressão $\sqrt{S_1^2 / n_1 + S_2^2 / n_2}$
+  calcula o desvio padrão da distribuição amostral da diferença entre as duas médias.
+  Este termo é essencial para padronizar a diferença observada.
+
+  \item \textbf{Estatística de teste}: $Z_0 = \dfrac{\bar{X}_1 - \bar{X}_2}{erro\_padrao}$
+  representa quantos desvios padrão a diferença observada está distante de zero
+  (a hipótese nula assume que não há diferença).
+
+  \item \textbf{Valor crítico}: Para amostras grandes, a distribuição normal é adequada.
+  O valor crítico $Z_c$ divide a distribuição em regiões de rejeição e não-rejeição.
+
+  \item \textbf{Regra de decisão}: Se o valor absoluto de $Z_0$ exceder o valor crítico,
+  a diferença observada é considerada estatisticamente significativa, justificando a rejeição de $H_0$.
+
+  \item \textbf{Justificativa de amostras grandes}: Pelo Teorema do Limite Central, quando
+  $n > 30$, a distribuição das médias amostrais aproxima-se da distribuição normal, mesmo que
+  a população original não seja normal.
+\end{enumerate}
+
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════════════════
@@ -209,23 +265,23 @@ significativa entre as médias de commits dos dois repositórios.
 
 \subsection*{Situação-Problema}
 
-Um pesquisador deseja comparar o consumo médio de memória RAM (em MB) de dois
-algoritmos de ordenação executados sob as mesmas condições. Assume-se que as
-variâncias das populações são iguais. Os dados coletados foram:
+Um pesquisador deseja comparar a acidez volátil média entre dois tipos de vinho,
+utilizando pequenas amostras da base Wine Quality. Assume-se que as variâncias
+das populações são iguais. Os dados coletados foram:
 
 \begin{center}
 \begin{tabular}{lcc}
   \toprule
-  & \textbf{Algoritmo A} & \textbf{Algoritmo B} \\
+  & \textbf{Vinho Tinto} & \textbf{Vinho Branco} \\
   \midrule
-  Tamanho da amostra ($n$) & 10      & 12      \\
-  Média ($\bar{X}$, em MB) & 128{,}4 & 134{,}7 \\
-  Variância ($S^2$)        & 22{,}5  & 19{,}8  \\
+  Tamanho da amostra ($n$) & 12       & 14       \\
+  Média acidez volátil & 0{,}616  & 0{,}253  \\
+  Variância ($S^2$)    & 0{,}023  & 0{,}002  \\
   \bottomrule
 \end{tabular}
 \end{center}
 
-Com \textbf{significância de 5\%}, há diferença no consumo médio de memória?
+Com \textbf{significância de 5\%}, há diferença na acidez volátil média entre os tipos de vinho?
 
 \subsection*{Solução}
 
@@ -239,10 +295,10 @@ Com \textbf{significância de 5\%}, há diferença no consumo médio de memória
 
 \[
   S_p^2 = \frac{(n_1 - 1)\,S_1^2 + (n_2 - 1)\,S_2^2}{n_1 + n_2 - 2}
-        = \frac{(9)(22{,}5) + (11)(19{,}8)}{10 + 12 - 2}
-        = \frac{202{,}5 + 217{,}8}{20}
-        = \frac{420{,}3}{20}
-        = 21{,}015
+        = \frac{(11)(0{,}023) + (13)(0{,}002)}{12 + 14 - 2}
+        = \frac{0{,}253 + 0{,}026}{24}
+        = \frac{0{,}279}{24}
+        = 0{,}01162
 \]
 
 \textbf{Estatística $t_0$}
@@ -250,26 +306,26 @@ Com \textbf{significância de 5\%}, há diferença no consumo médio de memória
 \[
   t_0 = \frac{(\bar{X}_1 - \bar{X}_2) - (\mu_1 - \mu_2)}
              {\sqrt{S_p^2 \left(\dfrac{1}{n_1} + \dfrac{1}{n_2}\right)}}
-      = \frac{(128{,}4 - 134{,}7) - 0}
-             {\sqrt{21{,}015 \left(\dfrac{1}{10} + \dfrac{1}{12}\right)}}
+      = \frac{(0{,}616 - 0{,}253) - 0}
+             {\sqrt{0{,}01162 \left(\dfrac{1}{12} + \dfrac{1}{14}\right)}}
 \]
 
 \[
-  = \frac{-6{,}3}{\sqrt{21{,}015 \times 0{,}1833}}
-  = \frac{-6{,}3}{\sqrt{3{,}852}}
-  = \frac{-6{,}3}{1{,}9627}
-  \approx -3{,}21
+  = \frac{0{,}363}{\sqrt{0{,}01162 \times 0{,}1627}}
+  = \frac{0{,}363}{\sqrt{0{,}001891}}
+  = \frac{0{,}363}{0{,}04348}
+  \approx 8{,}35
 \]
 
-\textbf{Graus de liberdade:} $gl = n_1 + n_2 - 2 = 10 + 12 - 2 = 20$
+\textbf{Graus de liberdade:} $gl = n_1 + n_2 - 2 = 12 + 14 - 2 = 24$
 
-Para $\alpha = 0{,}05$ bilateral e $gl = 20$, o valor crítico é
-$t_{(20;\,0{,}025)} \approx 2{,}086$.
+Para $\alpha = 0{,}05$ bilateral e $gl = 24$, o valor crítico é
+$t_{(24;\,0{,}025)} \approx 2{,}064$.
 
 \textbf{Decisão}
 
-Como $|{-3{,}21}| = 3{,}21 > 2{,}086$, \textbf{rejeita-se $H_0$}: há diferença
-significativa no consumo médio de memória entre os dois algoritmos.
+Como $|{8{,}35}| = 8{,}35 > 2{,}064$, \textbf{rejeita-se $H_0$}: há diferença
+significativa na acidez volátil média entre vinhos tintos e brancos.
 
 \subsection*{Pseudocódigo}
 
@@ -289,6 +345,36 @@ significativa no consumo médio de memória entre os dois algoritmos.
 \end{algorithmic}
 \end{algorithm}
 
+\subsubsection*{Explicação do Pseudocódigo}
+
+Este algoritmo compara as médias de dois grupos pequenos quando a suposição de igualdade
+de variâncias populacionais é válida. O procedimento usa a distribuição $t$ de Student:
+
+\begin{enumerate}
+  \item \textbf{Entrada de dados}: Recebe as médias, variâncias e tamanhos amostrais de ambos
+  os grupos, além do nível de significância $\alpha$.
+
+  \item \textbf{Variância agrupada}: A fórmula $S_p^2 = \dfrac{(n_1-1)S_1^2 + (n_2-1)S_2^2}{n_1+n_2-2}$
+  combina as variâncias amostrais em uma estimativa única, ponderada pelos graus de liberdade de cada amostra.
+  Isto aumenta a precisão da estimativa quando as populações têm variâncias iguais.
+
+  \item \textbf{Estatística de teste}: $t_0$ segue a distribuição $t$ de Student com $gl$ graus de liberdade.
+  O denominador usa a variância agrupada, o que a diferencia do teste para variâncias desiguais.
+
+  \item \textbf{Graus de liberdade}: $gl = n_1 + n_2 - 2$ representa a perda de dois graus de liberdade
+  (um para cada amostra), já que duas médias são estimadas a partir dos dados.
+
+  \item \textbf{Distribuição $t$ de Student}: Diferentemente da distribuição $Z$ (usada para amostras grandes),
+  a distribuição $t$ é mais dispersa e tem caudas mais pesadas. Isto reflete a maior incerteza ao estimar
+  a variância populacional com amostras pequenas.
+
+  \item \textbf{Regra de decisão}: Se $|t_0|$ exceder o valor crítico $t_c$, conclui-se que há diferença
+  significativa entre os grupos.
+
+  \item \textbf{Pressupostos}: Este teste assume normalidade das populações e igualdade de variâncias.
+  Violações podem comprometer a validade das conclusões.
+\end{enumerate}
+
 \newpage
 
 % ═══════════════════════════════════════════════════════════════════════════════
@@ -297,23 +383,22 @@ significativa no consumo médio de memória entre os dois algoritmos.
 
 \subsection*{Situação-Problema}
 
-Dois grupos de dispositivos IoT de fabricantes distintos foram testados quanto
-ao tempo médio de resposta (em ms) a uma requisição MQTT. As variâncias
-populacionais são presumivelmente \textbf{diferentes}. Os dados foram:
+Um enólogo compara o pH médio entre dois grupos pequenos de vinhos da base Wine Quality,
+onde as variâncias populacionais são presumivelmente \textbf{diferentes}. Os dados foram:
 
 \begin{center}
 \begin{tabular}{lcc}
   \toprule
-  & \textbf{Fabricante X} & \textbf{Fabricante Y} \\
+  & \textbf{Vinho Tinto} & \textbf{Vinho Branco} \\
   \midrule
-  Tamanho da amostra ($n$) & 8       & 10      \\
-  Média ($\bar{X}$, em ms) & 42{,}5  & 48{,}3  \\
-  Variância ($S^2$)        & 18{,}0  & 62{,}4  \\
+  Tamanho da amostra ($n$) & 10      & 9       \\
+  Média pH                 & 3{,}355 & 3{,}187 \\
+  Variância ($S^2$)        & 0{,}016 & 0{,}013 \\
   \bottomrule
 \end{tabular}
 \end{center}
 
-Com \textbf{significância de 5\%}, os tempos médios de resposta diferem?
+Com \textbf{significância de 5\%}, os valores médios de pH diferem?
 
 \subsection*{Solução}
 
@@ -328,12 +413,12 @@ Com \textbf{significância de 5\%}, os tempos médios de resposta diferem?
 \[
   t^* = \frac{\bar{X}_1 - \bar{X}_2}
              {\sqrt{\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}}}
-      = \frac{42{,}5 - 48{,}3}
-             {\sqrt{\dfrac{18{,}0}{8} + \dfrac{62{,}4}{10}}}
-      = \frac{-5{,}8}{\sqrt{2{,}25 + 6{,}24}}
-      = \frac{-5{,}8}{\sqrt{8{,}49}}
-      = \frac{-5{,}8}{2{,}9138}
-      \approx -1{,}99
+      = \frac{3{,}355 - 3{,}187}
+             {\sqrt{\dfrac{0{,}016}{10} + \dfrac{0{,}013}{9}}}
+      = \frac{0{,}168}{\sqrt{0{,}0016 + 0{,}001444}}
+      = \frac{0{,}168}{\sqrt{0{,}003044}}
+      = \frac{0{,}168}{0{,}05517}
+      \approx 3{,}04
 \]
 
 \textbf{Graus de liberdade ajustados} (Welch--Satterthwaite):
@@ -342,27 +427,27 @@ Com \textbf{significância de 5\%}, os tempos médios de resposta diferem?
   gl = \frac{\left(\dfrac{S_1^2}{n_1} + \dfrac{S_2^2}{n_2}\right)^2}
             {\dfrac{\left(\dfrac{S_1^2}{n_1}\right)^2}{n_1 - 1}
              + \dfrac{\left(\dfrac{S_2^2}{n_2}\right)^2}{n_2 - 1}}
-     = \frac{(2{,}25 + 6{,}24)^2}
-            {\dfrac{(2{,}25)^2}{7} + \dfrac{(6{,}24)^2}{9}}
-     = \frac{(8{,}49)^2}{\dfrac{5{,}0625}{7} + \dfrac{38{,}9376}{9}}
+     = \frac{(0{,}0016 + 0{,}001444)^2}
+            {\dfrac{(0{,}0016)^2}{9} + \dfrac{(0{,}001444)^2}{8}}
+     = \frac{(0{,}003044)^2}{\dfrac{0{,}00000256}{9} + \dfrac{0{,}00000209}{8}}
 \]
 
 \[
-  = \frac{72{,}0801}{0{,}7232 + 4{,}3264}
-  = \frac{72{,}0801}{5{,}0496}
-  \approx 14{,}27
-  \quad \Rightarrow \quad gl = 14 \text{ (truncado)}
+  = \frac{0{,}00000927}{0{,}000000284 + 0{,}000000261}
+  = \frac{0{,}00000927}{0{,}000000545}
+  \approx 17{,}0
+  \quad \Rightarrow \quad gl = 17 \text{ (truncado)}
 \]
 
-Para $\alpha = 0{,}05$ bilateral e $gl = 14$, o valor crítico é
-$t_{(14;\,0{,}025)} \approx 2{,}145$.
+Para $\alpha = 0{,}05$ bilateral e $gl = 17$, o valor crítico é
+$t_{(17;\,0{,}025)} \approx 2{,}110$.
 
 \textbf{Decisão}
 
-Como $|{-1{,}99}| = 1{,}99 < 2{,}145$, o valor calculado está \textbf{dentro}
-da região de não-rejeição. Portanto, \textbf{não se rejeita $H_0$}: não há
-evidência suficiente para afirmar que os tempos médios de resposta dos dois
-fabricantes são diferentes, ao nível de significância de 5\%.
+Como $|{3{,}04}| = 3{,}04 > 2{,}110$, o valor calculado está \textbf{fora}
+da região de não-rejeição. Portanto, \textbf{rejeita-se $H_0$}: há
+evidência suficiente para afirmar que os valores médios de pH dos dois tipos de vinho
+são diferentes, ao nível de significância de 5\%.
 
 \subsection*{Pseudocódigo}
 
@@ -382,5 +467,40 @@ fabricantes são diferentes, ao nível de significância de 5\%.
   \EndIf
 \end{algorithmic}
 \end{algorithm}
+
+\subsubsection*{Explicação do Pseudocódigo}
+
+Este é o teste de Welch, uma variante robusta do teste $t$ que não assume igualdade de variâncias.
+É particularmente útil quando as populações têm dispersões diferentes:
+
+\begin{enumerate}
+  \item \textbf{Entrada de dados}: Recebe as médias, variâncias e tamanhos amostrais de ambos
+  os grupos, além do nível de significância $\alpha$.
+
+  \item \textbf{Componentes da variância}: As linhas $A \gets S_1^2/n_1$ e $B \gets S_2^2/n_2$
+  calculam as contribuições individuais de cada grupo para o erro padrão da diferença.
+  Diferentemente do teste com variâncias iguais, estas não são agrupadas.
+
+  \item \textbf{Estatística de teste}: $t^* = \dfrac{\bar{X}_1 - \bar{X}_2}{\sqrt{A+B}}$
+  segue aproximadamente a distribuição $t$ de Student. O denominador é a raiz quadrada
+  da soma das variâncias dos erros padrão.
+
+  \item \textbf{Graus de liberdade ajustados (Welch--Satterthwaite)}: Esta fórmula complexa
+  ajusta os graus de liberdade levando em conta as diferentes variâncias amostrais.
+  Quando as variâncias são muito diferentes, $gl$ será menor que $n_1 + n_2 - 2$,
+  resultando em um valor crítico mais conservador (maior).
+
+  \item \textbf{Arredondamento}: A função $\lfloor \cdot \rfloor$ (piso) trunca o resultado
+  para o inteiro mais próximo, já que graus de liberdade devem ser inteiros para consultar
+  a tabela $t$ de Student.
+
+  \item \textbf{Vantagem do teste de Welch}: Não requer a pressuposição de homogeneidade
+  de variâncias, tornando-o mais robusto. Mesmo que variâncias populacionais sejam iguais,
+  este teste funciona bem.
+
+  \item \textbf{Quando usar}: Use este teste quando tiver evidência (teste de Levene, Bartlett)
+  de que as variâncias são diferentes, ou simplesmente quando quiser ser mais conservador
+  e não assumir igualdade de variâncias.
+\end{enumerate}
 
 \end{document}
