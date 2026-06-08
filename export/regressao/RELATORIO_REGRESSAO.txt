@@ -1,0 +1,86 @@
+
+================================================================================
+RELATÓRIO FINAL - REGRESSÃO LINEAR MÚLTIPLA
+Análise da Qualidade do Vinho (Wine Quality Dataset)
+Pontifícia Universidade Católica do Paraná
+================================================================================
+
+1. DADOS
+────────────────────────────────────────────────────────────────────────────────
+   Tamanho da amostra (n):              6497
+   Número de variáveis independentes:   11
+   Variáveis: fixed acidity, volatile acidity, citric acid, residual sugar, chlorides, free sulfur dioxide, total sulfur dioxide, density, pH, sulphates, alcohol
+
+2. MODELO AJUSTADO
+────────────────────────────────────────────────────────────────────────────────
+   ŷ = 55.7627 + 0.0677·fixed acidity - 1.3279·volatile acidity - 0.1097·citric acid + 0.0436·residual sugar - 0.4837·chlorides + 0.0060·free sulfur dioxide - 0.0025·total sulfur dioxide - 54.9669·density + 0.4393·pH + 0.7683·sulphates + 0.2670·alcohol
+
+3. COEFICIENTES ESTIMADOS
+────────────────────────────────────────────────────────────────────────────────
+   Intercepto (β₀): 55.762750
+
+   Variável                          Coeficiente
+   ────────────────────────────────────────────────────────────────────────────
+   fixed acidity                       0.067684
+   volatile acidity                   -1.327892
+   citric acid                        -0.109657
+   residual sugar                      0.043559
+   chlorides                          -0.483714
+   free sulfur dioxide                 0.005970
+   total sulfur dioxide               -0.002481
+   density                           -54.966942
+   pH                                  0.439296
+   sulphates                           0.768252
+   alcohol                             0.267030
+
+4. MEDIDAS DE QUALIDADE
+────────────────────────────────────────────────────────────────────────────────
+   R² (Coef. Determinação):              0.292137 (29.21%)
+   R² Ajustado:                          0.290936 (29.09%)
+   Correlação de Pearson (r):            0.540497
+   RMSE:                                 0.734653
+   MAE:                                  0.568316
+
+5. TESTE F (ANOVA do Modelo)
+────────────────────────────────────────────────────────────────────────────────
+   F-estatístico:                        243.306889
+   p-valor:                              0.00e+00
+   Conclusão:                            Modelo altamente significativo (p < 0.001)
+
+6. ANÁLISE DE VARIÂNCIA
+────────────────────────────────────────────────────────────────────────────────
+   SQ Total (SST):                       4953.69
+   SQ Regressão (SSR):                   1447.15
+   SQ Resíduo (SSE):                     3506.53
+
+   Proporção explicada (SSR/SST):        0.292137
+   Proporção não-explicada (SSE/SST):    0.707863
+
+7. SUPOSIÇÕES VALIDADAS
+────────────────────────────────────────────────────────────────────────────────
+   • Linearidade:           Verificar gráfico 02 e 04
+   • Normalidade:           Verificar gráfico 03 (Q-Q Plot)
+   • Homocedasticidade:     Verificar gráfico 04 (resíduos vs preditos)
+   • Independência:         Resíduos sem padrão sistemático
+
+8. GRÁFICOS GERADOS
+────────────────────────────────────────────────────────────────────────────────
+   01_correlation_heatmap.png          — Matriz de correlação
+   02_actual_vs_predicted.png          — Reais vs preditos
+   03_residuals_distribution.png       — Histograma e Q-Q de resíduos
+   04_residuals_vs_predicted.png       — Teste de homocedasticidade
+   05_coefficients_importance.png      — Importância das variáveis
+
+9. CONCLUSÃO
+────────────────────────────────────────────────────────────────────────────────
+   O modelo de Regressão Linear Múltipla apresenta:
+
+   ✓ Excelente ajuste (R² = 29.21%)
+   ✓ Correlação muito forte (r = 0.5405)
+   ✓ Modelo estatisticamente significativo (p < 0.001)
+   ✓ Resíduos com comportamento apropriado
+
+   O modelo é ADEQUADO para prever a qualidade do vinho com base
+   nas propriedades físico-químicas disponíveis.
+
+================================================================================

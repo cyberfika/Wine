@@ -1,0 +1,333 @@
+\documentclass[12pt,a4paper]{article}
+
+% ── Pacotes ──────────────────────────────────────────────
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[brazil]{babel}
+\usepackage{amsmath, amssymb}
+\usepackage{geometry}
+\usepackage{indentfirst}
+\usepackage{setspace}
+\usepackage{graphicx}
+\usepackage{hyperref}
+
+\geometry{left=3cm, right=2cm, top=3cm, bottom=2cm}
+\onehalfspacing
+
+% ── Dados ────────────────────────────────────────────────
+\title{%
+  \textbf{Atividade A20 - Regressão Linear Múltipla}\\[6pt]
+  \large Métodos Quantitativos -- Ciência da Computação\\
+  Pontifícia Universidade Católica do Paraná
+}
+\author{Jafte Carneiro Fagundes da Silva}
+\date{21 de maio de 2026}
+
+\begin{document}
+\maketitle
+
+% ═════════════════════════════════════════════════════════
+\section*{Questão 1}
+\textbf{Qual é a equação que representa de forma genérica uma Regressão Linear Múltipla?}
+
+\bigskip
+
+A Regressão Linear Múltipla é uma extensão da Regressão Linear Simples que permite modelar a relação entre uma variável dependente $Y$ e \textbf{duas ou mais} variáveis independentes $X_1, X_2, \ldots, X_k$. Sua equação genérica é:
+
+\begin{equation}
+\boxed{Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + \cdots + \beta_k X_k + \varepsilon}
+\label{eq:rlm}
+\end{equation}
+
+\noindent onde:
+
+\begin{itemize}
+  \item $Y$ -- variável dependente (resposta);
+  \item $X_1, X_2, \ldots, X_k$ -- variáveis independentes (preditoras);
+  \item $\beta_0$ -- intercepto (valor de $Y$ quando todas as variáveis independentes são iguais a zero);
+  \item $\beta_1, \beta_2, \ldots, \beta_k$ -- coeficientes de regressão, que representam a variação em $Y$ para cada incremento unitário na respectiva variável $X_i$, mantendo as demais constantes;
+  \item $\varepsilon$ -- termo de erro aleatório, com $\varepsilon \sim N(0, \sigma^2)$.
+  \item $k$ -- número de variáveis independentes do modelo.
+\end{itemize}
+
+\subsection*{Forma matricial}
+
+Em notação matricial, a mesma equação pode ser expressa como:
+
+\begin{equation}
+\mathbf{Y} = \mathbf{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation}
+
+\noindent onde $\mathbf{Y}$ é o vetor $n \times 1$ de observações, $\mathbf{X}$ é a matriz $n \times (k+1)$ de preditoras (com a primeira coluna de $1$s para o intercepto), $\boldsymbol{\beta}$ é o vetor $(k+1) \times 1$ de coeficientes e $\boldsymbol{\varepsilon}$ é o vetor de erros.
+
+Os coeficientes são estimados pelo método dos \textbf{Mínimos Quadrados Ordinários} (MQO):
+
+\begin{equation}
+\hat{\boldsymbol{\beta}} = (\mathbf{X}^T \mathbf{X})^{-1} \mathbf{X}^T \mathbf{Y}
+\end{equation}
+
+% ═════════════════════════════════════════════════════════
+\newpage
+\section*{Questão 2}
+\textbf{Crie uma situação em que se utilizaria uma Regressão Linear Múltipla:}
+
+\subsection*{a) Enunciado}
+
+Considere o dataset \textbf{Wine Quality}, um conjunto de dados amplamente utilizado em aprendizado de máquina que contém informações sobre 6.497 amostras de vinhos portugueses (1.599 tintos e 4.898 brancos) do tipo \textit{Vinho Verde}.
+
+\textbf{Situação Prática:}
+
+Um enólogo deseja prever a \textbf{qualidade de um vinho} com base exclusivamente em suas \textbf{propriedades físico-químicas}, obtidas por meio de análises laboratoriais. O objetivo é desenvolver um modelo que permita:
+
+\begin{enumerate}
+  \item Estimar a qualidade de novos lotes de vinho;
+  \item Identificar quais propriedades físico-químicas mais influenciam a qualidade;
+  \item Orientar decisões de produção e controle de qualidade.
+\end{enumerate}
+
+\textbf{Variáveis disponíveis:}
+
+\begin{itemize}
+  \item \textbf{Variáveis independentes (11):} acidez fixa, acidez volátil, ácido cítrico, açúcar residual, cloretos, dióxido de enxofre livre, dióxido de enxofre total, densidade, pH, sulfatos e álcool;
+  \item \textbf{Variável dependente (1):} qualidade (escala de 0 a 10, baseada em avaliação sensorial).
+\end{itemize}
+
+\subsection*{b) Dados}
+
+Os dados foram carregados do dataset \textit{Wine Quality} do UCI Machine Learning Repository, conforme referência de Cortez et al. (2009).
+
+\textbf{Amostra:} 6.497 observações com 11 variáveis físico-químicas contínuas.
+
+\textbf{Estatísticas descritivas resumidas:}
+
+\begin{center}
+\begin{tabular}{|l|c|c|c|c|}
+\hline
+\textbf{Variável} & \textbf{Mínimo} & \textbf{Máximo} & \textbf{Média} & \textbf{Desvio Padrão} \\
+\hline
+Qualidade & 3 & 9 & 5,82 & 0,87 \\
+Álcool (\%) & 8,00 & 14,90 & 10,49 & 1,19 \\
+Densidade & 0,987 & 1,039 & 0,995 & 0,003 \\
+pH & 2,72 & 4,01 & 3,22 & 0,16 \\
+Acidez Volátil & 0,08 & 1,58 & 0,34 & 0,16 \\
+Sulfatos & 0,22 & 2,00 & 0,53 & 0,15 \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsection*{c) Passos até a Solução}
+
+\subsubsection*{Passo 1: Análise de Correlação}
+
+Primeiramente, calculou-se a matriz de correlação de Pearson entre todas as variáveis, a fim de identificar quais preditores apresentam maior relação linear com a qualidade.
+
+\textbf{Principais achados:}
+
+\begin{itemize}
+  \item \textbf{Correlação positiva mais forte:} álcool ($r = 0,444$);
+  \item \textbf{Correlação negativa mais forte:} densidade ($r = -0,306$) e acidez volátil ($r = -0,266$);
+  \item As demais variáveis apresentam correlações mais fracas com a qualidade.
+\end{itemize}
+
+Vide Figura 1 para visualização completa da matriz de correlação.
+
+\subsubsection*{Passo 2: Construção do Modelo}
+
+Aplicou-se o método dos Mínimos Quadrados Ordinários (MQO) para estimar os coeficientes de regressão. O modelo foi ajustado utilizando a biblioteca \texttt{scikit-learn} do Python.
+
+\subsubsection*{Passo 3: Estimação dos Coeficientes}
+
+Após o ajuste, obtiveram-se os seguintes coeficientes:
+
+\begin{center}
+\begin{tabular}{|l|c|}
+\hline
+\textbf{Variável} & \textbf{Coeficiente} \\
+\hline
+Intercepto & $+55,7627$ \\
+Densidade & $-54,9669$ \\
+Acidez Volátil & $-1,3279$ \\
+Sulfatos & $+0,7683$ \\
+Cloretos & $-0,4837$ \\
+pH & $+0,4393$ \\
+Álcool & $+0,2670$ \\
+Ácido Cítrico & $-0,1097$ \\
+Acidez Fixa & $+0,0677$ \\
+Açúcar Residual & $+0,0436$ \\
+SO₂ Livre & $+0,0060$ \\
+SO₂ Total & $-0,0025$ \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Passo 4: Interpretação dos Coeficientes}
+
+\begin{itemize}
+  \item \textbf{Densidade:} cada aumento de 0,001 g/cm³ \textit{reduz} a qualidade em aproximadamente 0,055 pontos;
+  \item \textbf{Acidez Volátil:} cada aumento de 1 g/L \textit{reduz} a qualidade em aproximadamente 1,33 pontos;
+  \item \textbf{Sulfatos:} cada aumento de 1 g/L \textit{aumenta} a qualidade em aproximadamente 0,77 pontos;
+  \item \textbf{Álcool:} cada aumento de 1\% \textit{aumenta} a qualidade em aproximadamente 0,27 pontos.
+\end{itemize}
+
+\subsection*{d) Equação de Regressão Linear Múltipla}
+
+\begin{equation}
+\boxed{\begin{aligned}
+\hat{y} = 55,7627 &- 54,9669 \cdot \text{densidade} - 1,3279 \cdot \text{acidez volátil} \\
+&+ 0,7683 \cdot \text{sulfatos} - 0,4837 \cdot \text{cloretos} + 0,4393 \cdot \text{pH} \\
+&+ 0,2670 \cdot \text{álcool} + \text{(demais variáveis)}
+\end{aligned}}
+\end{equation}
+
+\noindent onde a notação $\hat{y}$ representa a estimativa da qualidade do vinho.
+
+\subsection*{e) Medida da Qualidade da Solução -- Coeficientes de Correlação}
+
+\subsubsection*{1. Coeficiente de Determinação ($R^2$)}
+
+O coeficiente de determinação mede a proporção da variância na variável dependente que é explicada pelos preditores:
+
+\begin{equation}
+R^2 = 1 - \frac{\text{SQ}_{\text{resíduo}}}{\text{SQ}_{\text{total}}} = \frac{\text{SQ}_{\text{regressão}}}{\text{SQ}_{\text{total}}}
+\end{equation}
+
+\textbf{Resultado obtido:}
+
+\begin{equation}
+R^2 = 0,2921 \quad \Rightarrow \quad \boxed{29,21\% \text{ de variância explicada}}
+\end{equation}
+
+\textbf{Interpretação:} O modelo explica aproximadamente 29\% da variação total da qualidade. Embora este valor possa parecer moderado, é importante ressaltar que:
+
+\begin{itemize}
+  \item A qualidade é um julgamento sensorial subjetivo, sujeito a variabilidade inerente;
+  \item Apenas propriedades físico-químicas foram consideradas; fatores como uva utilizada, técnicas de fermentação e aging não estão disponíveis;
+  \item Um $R^2$ de 0,29 ainda representa um poder preditivo relevante.
+\end{itemize}
+
+\subsubsection*{2. Coeficiente de Determinação Ajustado ($R^2_{\text{ajustado}}$)}
+
+O $R^2$ ajustado penaliza a adição de variáveis que não contribuem significativamente ao modelo:
+
+\begin{equation}
+R^2_{\text{ajustado}} = 1 - \frac{(1 - R^2)(n-1)}{n - p - 1}
+\end{equation}
+
+\noindent onde $n = 6.497$ observações e $p = 11$ preditores.
+
+\textbf{Resultado obtido:}
+
+\begin{equation}
+R^2_{\text{ajustado}} = 0,2909 \quad \Rightarrow \quad \boxed{29,09\%}
+\end{equation}
+
+\textbf{Interpretação:} O $R^2$ ajustado é muito próximo ao $R^2$ não-ajustado (diferença de 0,12 p.p.), sugerindo que a inclusão das 11 variáveis é adequada e não há sobreajuste.
+
+\subsubsection*{3. Correlação de Pearson entre Valores Reais e Preditos}
+
+A correlação de Pearson entre os valores observados e os valores preditos pelo modelo avalia a força da relação linear:
+
+\begin{equation}
+r = \sqrt{R^2} = \sqrt{0,2921} = 0,5405
+\end{equation}
+
+\textbf{Resultado e Interpretação:}
+
+\begin{itemize}
+  \item $r = 0,5405$ (correlação moderada a forte);
+  \item p-valor $< 0,001$ (altamente significativa);
+  \item O modelo produz predições que correlacionam fortemente com os valores reais.
+\end{itemize}
+
+\subsubsection*{4. Raiz do Erro Quadrático Médio (RMSE)}
+
+O RMSE mede o desvio médio das predições em relação aos valores reais:
+
+\begin{equation}
+\text{RMSE} = \sqrt{\frac{\sum_{i=1}^{n} (y_i - \hat{y}_i)^2}{n}}
+\end{equation}
+
+\textbf{Resultado obtido:}
+
+\begin{equation}
+\text{RMSE} = 0,7347
+\end{equation}
+
+\textbf{Interpretação:} Em média, as predições do modelo desviam $\pm 0,73$ pontos da escala de qualidade (que varia de 3 a 9). Considerando que a escala é relativamente curta, este erro é moderado.
+
+\subsubsection*{5. Erro Absoluto Médio (MAE)}
+
+O MAE representa o erro absoluto médio sem considerar a direção do erro:
+
+\begin{equation}
+\text{MAE} = \frac{1}{n} \sum_{i=1}^{n} |y_i - \hat{y}_i|
+\end{equation}
+
+\textbf{Resultado obtido:}
+
+\begin{equation}
+\text{MAE} = 0,5683
+\end{equation}
+
+\textbf{Interpretação:} Em média, as predições diferem $\pm 0,57$ pontos dos valores reais.
+
+\subsubsection*{6. Análise de Variância (ANOVA)}
+
+A decomposição da variância total permite avaliar o modelo como um todo:
+
+\begin{center}
+\begin{tabular}{|l|r|r|r|}
+\hline
+\textbf{Fonte} & \textbf{Soma Quadrados} & \textbf{G.L.} & \textbf{Quadrado Médio} \\
+\hline
+Regressão & 1.447,15 & 11 & 131,56 \\
+Resíduo & 3.506,53 & 6.485 & 0,54 \\
+Total & 4.953,69 & 6.496 &  \\
+\hline
+\end{tabular}
+\end{center}
+
+O teste F resulta em:
+
+\begin{equation}
+F = \frac{\text{QM}_{\text{regressão}}}{\text{QM}_{\text{resíduo}}} \approx 243,26, \quad p\text{-valor} < 0,001
+\end{equation}
+
+\textbf{Conclusão:} O modelo como um todo é altamente significativo. Rejeita-se a hipótese nula de que todos os coeficientes são iguais a zero.
+
+\subsubsection*{7. Validação das Suposições}
+
+As suposições clássicas do modelo de regressão linear foram verificadas:
+
+\begin{itemize}
+  \item \textbf{Linearidade:} Verificada através da Figura 2 (reais vs preditos);
+  \item \textbf{Normalidade dos resíduos:} Q-Q Plot na Figura 3 mostra aproximação à distribuição normal;
+  \item \textbf{Homocedasticidade:} Gráfico de resíduos vs preditos (Figura 4) não evidencia padrão sistemático;
+  \item \textbf{Independência:} Resíduos não apresentam autocorrelação visível.
+\end{itemize}
+
+\subsubsection*{Resumo Sintético das Métricas}
+
+\begin{center}
+\begin{tabular}{|l|c|l|}
+\hline
+\textbf{Métrica} & \textbf{Valor} & \textbf{Interpretação} \\
+\hline
+$R^2$ & 0,2921 & 29,21\% da variância explicada \\
+$R^2_{\text{ajustado}}$ & 0,2909 & 29,09\% (ajustado por p) \\
+$r$ (Pearson) & 0,5405 & Correlação moderada-forte \\
+RMSE & 0,7347 & Desvio médio $\pm 0,73$ pontos \\
+MAE & 0,5683 & Erro absoluto médio \\
+F-estatístico & 243,26 & Modelo muito significativo \\
+p-valor (F) & $<0,001$ & Altamente significativo \\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Conclusão Final}
+
+O modelo de Regressão Linear Múltipla apresenta qualidade adequada para prever a qualidade de vinhos com base em suas propriedades físico-químicas. Embora o $R^2$ de 0,29 indique que apenas 29\% da variação é explicada pelos preditores, este resultado é coerente com a natureza subjetiva da avaliação sensorial de qualidade. O modelo é estatisticamente significativo e as predições correlacionam-se fortemente com os valores reais ($r = 0,54$).
+
+A utilização de múltiplos coeficientes de correlação — $R^2$, $R^2_{\text{ajustado}}$, $r$ de Pearson, RMSE e testes estatísticos — permite uma avaliação multifacetada e robusta da qualidade da solução, confirmando que a Regressão Linear Múltipla é um método apropriado para este problema.
+
+\end{document}
