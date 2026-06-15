@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Add data processing scripts and detailed dataset summaries">
-      <change beforePath="$PROJECT_DIR$/.claude/settings.local.json" beforeDir="false" afterPath="$PROJECT_DIR$/.claude/settings.local.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/AtividadeA14/A14_TesteDeHipotese.tex" beforeDir="false" afterPath="$PROJECT_DIR$/AtividadeA14/A14_TesteDeHipotese.tex" afterDir="false" />
+    <list default="true" id="206401bc-1ba3-425f-83a1-fa216d171aaf" name="Changes" comment="feat: Add new LaTeX documents for regression analysis and update workspace configuration">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -38,7 +37,7 @@
     </persistenceIdMap>
   </component>
   <component name="EmbeddingIndexingInfo">
-    <option name="cachedIndexableFilesCount" value="172" />
+    <option name="cachedIndexableFilesCount" value="202" />
     <option name="fileBasedEmbeddingIndicesEnabled" value="true" />
   </component>
   <component name="Git.Settings">
@@ -125,6 +124,9 @@
       <workItem from="1780937424353" duration="1806000" />
       <workItem from="1780942374423" duration="81000" />
       <workItem from="1780942484392" duration="658000" />
+      <workItem from="1781076319888" duration="516000" />
+      <workItem from="1781100342605" duration="248000" />
+      <workItem from="1781535226332" duration="358000" />
     </task>
     <task id="LOCAL-00001" summary="feat: First commit -- Notebook and datasets">
       <option name="closed" value="true" />
